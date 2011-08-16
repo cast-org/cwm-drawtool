@@ -5,22 +5,42 @@
 	<version>0.8-SNAPSHOT</version>
 	<name>CWM Draw Tool</name>
 	<description>A drawing tool based on svg-edit</description>
+    <url>http://code.google.com/p/cwm-drawtool</url>
+
+    <organization>
+        <name>CAST, Inc.</name>
+        <url>http://cast.org</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>Apache 2</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <issueManagement>
+        <system>Google Code</system>
+        <url>http://code.google.com/p/cwm-drawtool/issues</url>
+    </issueManagement>
 
     <scm>
-      <connection>scm:svn:https://xander.cast.org/svn/cwm/cwm-drawtool/trunk</connection>
-      <url>https://xander.cast.org/svn/cwm/cwm-drawtool</url>
+        <url>http://code.google.com/p/cwm-drawtool/source</url>
+        <connection>scm:svn:http://cwm-drawtool.googlecode.com/svn/trunk</connection>
+        <developerConnection>scm:svn:https://cwm-drawtool.googlecode.com/svn/trunk</developerConnection>
     </scm>
 
     <distributionManagement>
-      <repository>
-        <id>xander</id>
-        <name>Xander Maven2 repository</name>
-        <url>scpexe://xander.cast.org/shared/maven2-repository</url>
-      </repository>
-      <site>
-        <id>xander</id>
-        <url>scpexe://xander.cast.org/var/www/html/docs/${project.artifactId}/</url>
-      </site>
+        <repository>
+            <id>xander</id>
+            <name>Xander Maven2 repository</name>
+            <url>scpexe://xander.cast.org/shared/maven2-repository</url>
+        </repository>
+        <site>
+            <id>xander</id>
+            <url>scpexe://xander.cast.org/var/www/html/docs/${project.artifactId}/</url>
+        </site>
     </distributionManagement>
 
     <repositories>
