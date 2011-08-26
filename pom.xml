@@ -37,10 +37,6 @@
             <name>Xander Maven2 repository</name>
             <url>scpexe://xander.cast.org/shared/maven2-repository</url>
         </repository>
-        <site>
-            <id>xander</id>
-            <url>scpexe://xander.cast.org/var/www/html/docs/${project.artifactId}/</url>
-        </site>
     </distributionManagement>
 
     <repositories>
