@@ -9,6 +9,7 @@ import org.apache.wicket.markup.html.form.upload.FileUpload;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.html.resources.JavascriptResourceReference;
+import org.apache.wicket.model.Model;
 import org.cast.cwm.drawtool.SvgEditor;
 
 public abstract class UploadExtension extends Panel implements Extension {
@@ -18,7 +19,7 @@ public abstract class UploadExtension extends Panel implements Extension {
 		
 		Form<Void> form = new Form<Void>("form");
 		
-		final FileUploadField file = new FileUploadField("file");
+		final FileUploadField file = new FileUploadField("file", new Model<FileUpload>(null));
 		form.add(file);
 		
 		form.add(new AjaxButton("submit") {
