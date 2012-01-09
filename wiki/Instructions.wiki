@@ -8,7 +8,7 @@ The source code contains CAST's plugin to SVG-edit, but not SVG-edit itself.  We
   # Confirm that your subversion client has correctly followed the external reference and included the proper version of SVG-edit in a subdirectory called `src/main/resources/org/cast/cwm/drawtool/svgedit`.
   # Look in `src/main/resources/org/cast/cwm/drawtool/` for HTML files you can use:
     * view `SvgEditor.html` for a full screen version (not for general use)
-    * view `TestFrame.html` for a properly sized version of the interface which can be included (as an <iframe>) in your page.
+    * view `TestFrame.html` for a properly sized version of the interface which can be included (as an `<iframe>`) in your page.
 
 
 For usage as a Wicket module, you would do something like this:
