@@ -221,13 +221,14 @@ var CastTabs = {
 					"width": width,
 					"height": height,
 					"id": svgCanvas.getNextId(),
-					"style": "pointer-events:inherit"
+					"style": "pointer-events:inherit",
+					"xlink:href": url
 				}
 			});
 			
 			svgCanvas.clearSelection();	
 			svgCanvas.addToSelection([newImage]);
-			svgCanvas.setImageURL(url);
+
 			svgCanvas.alignSelectedElements("c", "page");
 			svgCanvas.alignSelectedElements("m", "page");
 
