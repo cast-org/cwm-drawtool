@@ -176,7 +176,7 @@ svgEditor.addExtension("cwm-shapes", function() {
 							.css('margin', '0px')
 							.slideDown();
 					} else {
-						buttons.slideUp('fast');
+						menu.slideUp('fast');
 					}
 				}
 			}
