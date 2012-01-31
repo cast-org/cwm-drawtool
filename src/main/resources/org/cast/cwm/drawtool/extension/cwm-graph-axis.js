@@ -14,95 +14,138 @@ function makeGraph(x, y) {
 		max: 10
 	}, y);
 	
+	console.log([x,y]);
+	
+	var g = {
+		yPixel: {
+			min: 10,
+			max: 240
+		},
+		yBg: {
+			template: '<line x1="40" x2="{xPixelMax}" y1="{yPixel}" y2="{yPixel}"/>',
+			html: ''
+		},
+		yEdge: {
+			template: '\
+				<line x1="35" x2="40" y1="{yPixel}" y2="{yPixel}"/>\
+                <line x1="32" x2="40" y1="{yPixelHalf}" y2="{yPixelHalf}"/>',
+			html: ''
+		},
+		yLabel: {
+			template: '<text x="35" y="{yPixel}">{yVal}</text>',
+			html: ''
+		},
+		xPixel: {
+			min: 40,
+			max: 520
+		},
+		xBg: {
+			template: '<line x1="{xPixel}" x2="{xPixel}" y1="10" y2="{yPixelMax}"/>',
+			html: ''
+		},
+		xEdge: {
+			template: '\
+				<line x1="{xPixelHalf}" x2="{xPixelHalf}" y1="{yPixelMax}" y2="{yPixelMaxPlus}"/>\
+				<line x1="{xPixel}" x2="{xPixel}" y1="{yPixelMax}" y2="{yPixelMaxPlus}"/>',
+			html: ''
+		},
+		xLabel: {
+			template: '<text x="{xPixel}" y="{yPixelMaxPlusPlus}">{xVal}</text>',
+			html: ''
+		}
+	}
+	
+	x.size = (x.max - x.min) / 10;
+	y.size = (y.max - y.min) / 10;
+	g.yPixel.size = (g.yPixel.max - g.yPixel.min) / 10;
+	g.xPixel.size = (g.xPixel.max - g.xPixel.min) / 10;
+	
+	var i = {
+		x: x.max,
+		y: y.min,
+		xPixel: g.xPixel.min,
+		yPixel: g.yPixel.min
+	};
+	
+	function proc(template) {
+		template = template
+			.replace(/[{]xVal[}]/g, i.y)
+			.replace(/[{]yVal[}]/g, i.x)
+			.replace(/[{]xPixel[}]/g, i.xPixel)
+			.replace(/[{]yPixel[}]/g, i.yPixel)
+			.replace(/[{]xPixelMin[}]/g, g.xPixel.min)
+			.replace(/[{]yPixelMin[}]/g, g.yPixel.min)
+			.replace(/[{]xPixelMax[}]/g, g.xPixel.max)
+			.replace(/[{]yPixelMax[}]/g, g.yPixel.max)
+			.replace(/[{]xPixelMaxPlus[}]/g, g.xPixel.max + 10)
+			.replace(/[{]yPixelMaxPlus[}]/g, g.yPixel.max + 10)
+			.replace(/[{]xPixelMaxPlusPlus[}]/g, g.xPixel.max + 20)
+			.replace(/[{]yPixelMaxPlusPlus[}]/g, g.yPixel.max + 20);
+		
+		var xHalf = i.xPixel + (g.xPixel.size / 2);
+		var yHalf = i.yPixel + (g.yPixel.size / 2);
+		
+		if (xHalf > g.xPixel.min && xHalf < g.xPixel.max) {
+			template = template.replace(/[{]xPixelHalf[}]/g, xHalf);
+		} else {
+			template = template.replace(/[{]xPixelHalf[}]/g, i.xPixel);
+		}
+		
+		if (yHalf > g.yPixel.min && yHalf < g.yPixel.max) {
+			template = template.replace(/[{]yPixelHalf[}]/g, yHalf);
+		} else {
+			template = template.replace(/[{]yPixelHalf[}]/g, i.yPixel);
+		}
+		
+		return template;
+	}
+	
+	while(i.x >= x.min) {
+		g.yBg.html += proc(g.yBg.template);
+		g.yEdge.html += proc(g.yEdge.template);
+		g.yLabel.html += proc(g.yLabel.template);
+		g.xBg.html += proc(g.xBg.template);
+		g.xEdge.html += proc(g.xEdge.template);
+		g.xLabel.html += proc(g.xLabel.template);
+		
+		i.x -= x.size;
+		i.y += y.size;
+		i.xPixel += g.xPixel.size;
+		i.yPixel += g.yPixel.size;
+	}
+	
     var graph = $('<svg>\
-        <g id="' + svgCanvas.getNextId() + '" transform="scale(0.3,0.3)" value="Graph">\
+        <g id="' + svgCanvas.getNextId() + '" value="Graph">\
             <g>\
-                <rect x="117.30000000000001" y="60" width="997.05" height="480" fill="ivory" stroke="gray"/>\
-                <g stroke="gray" stroke-dasharray="2,2">\
-                    <line x1="117.30000000000001" y1="540" x2="1114.35" y2="540"/>\
-                    <line x1="117.30000000000001" y1="492" x2="1114.35" y2="492"/>\
-                    <line x1="117.30000000000001" y1="444" x2="1114.35" y2="444"/>\
-                    <line x1="117.30000000000001" y1="396" x2="1114.35" y2="396"/>\
-                    <line x1="117.30000000000001" y1="348" x2="1114.35" y2="348"/>\
-                    <line x1="117.30000000000001" y1="300" x2="1114.35" y2="300"/>\
-                    <line x1="117.30000000000001" y1="252" x2="1114.35" y2="252"/>\
-                    <line x1="117.30000000000001" y1="204" x2="1114.35" y2="204"/>\
-                    <line x1="117.30000000000001" y1="156" x2="1114.35" y2="156"/>\
-                    <line x1="117.30000000000001" y1="108" x2="1114.35" y2="108"/>\
-                    <line x1="117.30000000000001" y1="60" x2="1114.35" y2="60"/>\
+                <rect x="40" y="10" width="' + (g.xPixel.max - 40) + '" height="' + (g.yPixel.max - 10) + '" fill="ivory" stroke="gray"/>\
+                <g class="yGrid" stroke="gray" stroke-dasharray="2,2">\
+                    ' + g.yBg.html + '\
+                </g>\
+                 <g class="xGrid" stroke="gray" stroke-dasharray="2,2">\
+                    ' + g.xBg.html + '\
                 </g>\
             </g>\
             <g class="yAxis" stroke="black" stroke-width="1">\
-                <line x1="117.30000000000001" y1="60" x2="117.30000000000001" y2="540"/>\
-                <line x1="107.30000000000001" y1="540" x2="117.30000000000001" y2="540"/>\
-                <line x1="112.30000000000001" y1="516" x2="117.30000000000001" y2="516"/>\
-                <line x1="107.30000000000001" y1="492" x2="117.30000000000001" y2="492"/>\
-                <line x1="112.30000000000001" y1="468" x2="117.30000000000001" y2="468"/>\
-                <line x1="107.30000000000001" y1="444" x2="117.30000000000001" y2="444"/>\
-                <line x1="112.30000000000001" y1="420" x2="117.30000000000001" y2="420"/>\
-                <line x1="107.30000000000001" y1="396" x2="117.30000000000001" y2="396"/>\
-                <line x1="112.30000000000001" y1="372" x2="117.30000000000001" y2="372"/>\
-                <line x1="107.30000000000001" y1="348" x2="117.30000000000001" y2="348"/>\
-                <line x1="112.30000000000001" y1="324" x2="117.30000000000001" y2="324"/>\
-                <line x1="107.30000000000001" y1="300" x2="117.30000000000001" y2="300"/>\
-                <line x1="112.30000000000001" y1="276" x2="117.30000000000001" y2="276"/>\
-                <line x1="107.30000000000001" y1="252" x2="117.30000000000001" y2="252"/>\
-                <line x1="112.30000000000001" y1="228" x2="117.30000000000001" y2="228"/>\
-                <line x1="107.30000000000001" y1="204" x2="117.30000000000001" y2="204"/>\
-                <line x1="112.30000000000001" y1="180" x2="117.30000000000001" y2="180"/>\
-                <line x1="107.30000000000001" y1="156" x2="117.30000000000001" y2="156"/>\
-                <line x1="112.30000000000001" y1="132" x2="117.30000000000001" y2="132"/>\
-                <line x1="107.30000000000001" y1="108" x2="117.30000000000001" y2="108"/>\
-                <line x1="112.30000000000001" y1="84" x2="117.30000000000001" y2="84"/>\
-                <line x1="107.30000000000001" y1="60" x2="117.30000000000001" y2="60"/>\
+                ' + g.yEdge.html + '\
             </g>\
             <g class="yAxisLabels" text-anchor="end">\
-                <text x="107.30000000000001" y="540">0</text>\
-                <text x="107.30000000000001" y="492">10</text>\
-                <text x="107.30000000000001" y="444">20</text>\
-                <text x="107.30000000000001" y="396">30</text>\
-                <text x="107.30000000000001" y="348">40</text>\
-                <text x="107.30000000000001" y="300">50</text>\
-                <text x="107.30000000000001" y="252">60</text>\
-                <text x="107.30000000000001" y="204">70</text>\
-                <text x="107.30000000000001" y="156">80</text>\
-                <text x="107.30000000000001" y="108">90</text>\
-                <text x="107.30000000000001" y="60">100</text>\
+                ' + g.yLabel.html + '\
             </g>\
             <g class="xAxis" stroke="black" stroke-width="1">\
-                <line x1="117.30000000000001" y1="540" x2="1114.35" y2="540"/>\
-                <line x1="117.30000000000001" y1="540" x2="117.30000000000001" y2="550"/>\
-                <line x1="381.22499999999997" y1="540" x2="381.22499999999997" y2="550"/>\
-                <line x1="615.8249999999999" y1="540" x2="615.8249999999999" y2="550"/>\
-                <line x1="850.425" y1="540" x2="850.425" y2="550"/>\
+                ' + g.xEdge.html + '\
             </g>\
             <g class="xAxisLabels" text-anchor="middle">\
-            	<text x="115.92499999999995" y="560">2000</text>\
-                <text x="379.92499999999995" y="560">2002</text>\
-                <text x="615.525" y="560">2004</text>\
-                <text x="850.125" y="560">2005</text>\
-                <text x="1099.7249999999999" y="560">2006</text>\
+                ' + g.xLabel.html + '\
             </g>\
-            <!--<text x="0" y="0" text-anchor="middle" transform="translate(77.30000000000001,300) rotate(-90)">Percentage</text>\
-            <text x="615.825" y="580" text-anchor="middle" fill="green">Year</text>-->\
+            <text style="font-size: .8em;" x="0" y="' + (g.yPixel.max / 2) + '" fill="red">Y Axis</text>\
+            <text style="font-size: .8em;" x="' + (g.xPixel.max / 2) + '" y="' + (g.yPixel.max + 30) + '" text-anchor="middle" fill="blue">X Axis</text>\
         </g>\
     </svg>');
 	// if shape is a path but we need to create a rect/ellipse, then remove the path
 	var drawing = svgCanvas.getCurrentDrawing();
-	var element = $(drawing.svgElem_);
-	var width = element.width();
-	var height = element.height();
 	var g = graph.find('g:first')[0];
 	var current_layer = drawing.getCurrentLayer();
-	if (current_layer) {
-		current_layer.appendChild(g);
-	}
-	
-	//this tricks the resize to stay transformed
-	$(g)
-		.trigger('mousedown')
-		.trigger('mouseup');
-
+	current_layer.appendChild(g);
 }
 
 svgEditor.addExtension("cwm-graph-axis", function() {
@@ -115,9 +158,33 @@ svgEditor.addExtension("cwm-graph-axis", function() {
 			title: "Graph Axis",
 			events: {
 				"mouseup": function() {
-					//CastTabs.dialog("Test");
-					makeGraph();
-					svgEditor.canvas.setMode('select');
+					CastTabs.dialog({
+						title: "Please setup graph axis ranges",
+						content: $('<div>\
+							x-min:<input id="xmin" type="text" value="0"/>\
+							x-max:<input id="xmax" type="text" value="10"/>\
+							y-min:<input id="ymin" type="text" value="0"/>\
+							x-max:<input id="ymax" type="text" value="10"/>\
+						</div>'),
+						buttons: {
+							Cancel: function(me) {
+								me.remove();
+							},
+							Ok: function(me) {
+								makeGraph({
+									min: me.find('#xmin').val() * 1,
+									max: me.find('#xmax').val() * 1,
+								},{
+									min: me.find('#ymin').val() * 1,
+									max: me.find('#ymax').val() * 1
+								});
+								
+								svgEditor.canvas.setMode('select');
+								
+								me.remove();
+							}
+						}
+					});
 				}
 			}
 		}],
@@ -125,14 +192,6 @@ svgEditor.addExtension("cwm-graph-axis", function() {
 			$.resizeSvgIcons({
 				"#cast_drawing_graph_axis .svg_icon": [46,30],
 			});
-		},
-		mouseDown: function(opts) {
-
-		},
-		mouseMove: function(opts) {
-
-		},
-		mouseUp: function(opts) {
 		}
 	}
 });
