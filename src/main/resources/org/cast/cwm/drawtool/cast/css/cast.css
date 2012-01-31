@@ -4,7 +4,9 @@
 
 /* Custom Coloring */
 body { 
-	background: #F0F0F0; 
+	background: #F0F0F0;
+	padding: 0px;
+	margin: 0px;
 }
 
 #svg_editor #sidepanel_handle {
@@ -46,6 +48,7 @@ body {
 	height: 72px;
 	overflow:hidden;
 	background:url(../images/top_panelbg.png) repeat-x;
+	position: static ! important;
 }
 
 #svg_editor #tools_top > div {

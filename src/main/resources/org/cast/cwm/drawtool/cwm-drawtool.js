@@ -118,7 +118,10 @@ var CastTabs = {
 							}
 						} else {
 							$("#cast_tab_" + name + "_selected").hide();
-							$("#cast_tab_" + name).show();							
+							$("#cast_tab_" + name).show();
+							$('#zoom_panel').show();
+							$('#zoom_dropdown')
+								.removeClass('dropup');
 						}
 					});
 				} catch (err) {
