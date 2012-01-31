@@ -28,7 +28,8 @@ svgEditor.addExtension("cwm-shapes", function() {
 		'basic': {
 			data: {
 				'heart': 'm150,73c61,-175 300,0 0,225c-300,-225 -61,-400 0,-225z',
-				'frame': 'm0,0l300,0l0,300l-300,0zm35,-265l0,230l230,0l0,-230z',
+				'square': 'm0,0l300,0l0,300l-300,0z',
+				'frame': 'm0,0l300,0l0,300l-300,0zm265,265l0,-230l-230,0l0,230z',
 				'donut': 'm1,150l0,0c0,-82.29042 66.70958,-149 149,-149l0,0c39.51724,0 77.41599,15.69816 105.35889,43.64108c27.94293,27.94293 43.64111,65.84165 43.64111,105.35892l0,0c0,82.29041 -66.70958,149 -149,149l0,0c-82.29041,0 -149,-66.70959 -149,-149zm74.5,0l0,0c0,41.1452 33.35481,74.5 74.5,74.5c41.14522,0 74.5,-33.3548 74.5,-74.5c0,-41.1452 -33.3548,-74.5 -74.5,-74.5l0,0c-41.14519,0 -74.5,33.35481 -74.5,74.5z',
 				"triangle": "m1,280.375l149,-260.75l149,260.75z",
 				"right_triangle": "m1,299l0,-298l298,298z",
@@ -217,6 +218,7 @@ svgEditor.addExtension("cwm-shapes", function() {
 					shape_buttons.slideUp('fast');
 				}
 				lock = false;
+				
 				if (!canv.getMode().match('cwm-shapes')) {
 					$('#cast_drawing_shapes')
 						.removeClass('tool_button_current');
@@ -226,11 +228,14 @@ svgEditor.addExtension("cwm-shapes", function() {
 			// Do mouseup on parent element rather than each button
 			shape_buttons.mouseup(function(evt) {
 				lock = false;
+				
+				cast.addClass('tool_button_current');
+				
 				var btn = $(evt.target).closest('div.tool_button');
 				if(!btn.length) return;
 				
 				cast.attr('data-curopt', '#' + btn[0].id); // This sets the current mode
-				
+				console.log(mode_id);
 				canv.setMode(mode_id);
 				
 				cur_shape_id = btn[0].id.substr((mode_id+'_').length);
