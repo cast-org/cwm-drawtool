@@ -46,9 +46,10 @@ body {
 	top: 0px;
 	right: 0px;
 	height: 72px;
-	overflow:hidden;
+	overflow: visible;
 	background:url(../images/top_panelbg.png) repeat-x;
-	position: static ! important;
+	position: absolute ! important;
+	z-index: 1;
 }
 
 #svg_editor #tools_top > div {
