@@ -63,7 +63,7 @@ svgEditor.addExtension("cwm-shapes", function() {
 	
 	var cur_lib = library.basic;
 	
-	var mode_id = 'shapelib';
+	var mode_id = 'cwm-shapes';
 	
 	function loadIcons() {
 		$('#shape_buttons').empty();
@@ -122,7 +122,7 @@ svgEditor.addExtension("cwm-shapes", function() {
 			var icon = svg_elem.clone();
 			icon.find('path').attr('d', path_d);
 			
-			var icon_btn = icon.wrap('<div class="tool_button">').parent().attr({
+			var icon_btn = icon.wrap('<div class="tool_button cast_drawing_shapes_button">').parent().attr({
 				id: mode_id + '_' + id,
 				title: id
 			});
@@ -134,7 +134,7 @@ svgEditor.addExtension("cwm-shapes", function() {
 		
 	}
 
-	function makeCast(data) {
+	function makeIcon(data) {
 		var size = cur_lib.size || 300;
 		var fill = cur_lib.fill || false;
 		var off = size * .05;
@@ -155,6 +155,7 @@ svgEditor.addExtension("cwm-shapes", function() {
 		var svg_elem = $(document.importNode(shape_icon.documentElement,true));
 		return svg_elem;
 	}
+	var lock = false;
 	
 	return {
 		svgicons: "svgedit/extensions/ext-shapes.xml",
@@ -164,83 +165,81 @@ svgEditor.addExtension("cwm-shapes", function() {
 			panel: "buttons_starters",
 			title: "Shapes",
 			events: {
-				"mouseup": function() {
-					var cast = $('#cast_drawing_shapes');
+				"mousedown": function() {
+					var cast = $('#cast_drawing_shapes').addClass('tool_button_current');
 					var menu = $('#shape_buttons');
-					
+					lock = true;
 					if (!menu.is(':visible')) {
 						var pos = cast.position();
 						menu
-							.css('top', (cast.height() + (pos.top * 1.2)) + 'px')
-							.css('left', (pos.left) + 'px')
+							.css('top', (cast.height() + pos.top) + 'px')
+							.css('left', pos.left + 'px')
 							.css('margin', '0px')
 							.slideDown();
-					} else {
-						menu.slideUp('fast');
 					}
+					
+					return false;
 				}
 			}
 		}],
 		callback: function() {
-			$('<style>').text('\
+			$('<style>').html('\
 				#shape_buttons {\
 					overflow: auto;\
-					max-height: 300px;\
 					width: 180px;\
+					height: auto;\
 					background-color:#E8E8E8;\
-					border: 1px solid black;\
 					display: table-cell;\
 					vertical-align: middle;\
-				}');
+					overflow: none;\
+					position: relative;\
+					top: 0px;\
+					left: 0px;\
+					display:none;\
+				}')
+				.appendTo('head');
 			
 			loadLibrary('basic');
 			
+			var cast = $('#cast_drawing_shapes');
 			var shape_buttons = $('<div id="shape_buttons" class="dialog_container" />')
-				.css('position','relative')
-				.css('left', '0px')
-				.css('top', '0px')
-				.hide()
 				.append(
 					$(library['basic'].buttons)
 						.css('display','inline')
-				);
+				)
+				.appendTo('#svg_editor')
+				.mousedown(function() {
+					lock = true;
+				});
 			
-			var shower = $('#tools_shapelib_show');
-			if (shower.length < 1) {
-				shower = $('<div id="tools_shapelib_show" style="position:absolute;top:0px;left:0px; width:1px; height:1px;"></div>')
-					.appendTo('#svg_editor')
-					.append(shape_buttons);
-			}
+			$(window).mouseup(function() {
+				if (lock != true) {
+					shape_buttons.slideUp('fast');
+				}
+				lock = false;
+				if (!canv.getMode().match('cwm-shapes')) {
+					$('#cast_drawing_shapes')
+						.removeClass('tool_button_current');
+				}
+			});
 			
 			// Do mouseup on parent element rather than each button
-			$('#shape_buttons').mouseup(function(evt) {
+			shape_buttons.mouseup(function(evt) {
+				lock = false;
 				var btn = $(evt.target).closest('div.tool_button');
-				
 				if(!btn.length) return;
 				
-				var copy = btn.children().clone();
-				shower.children(':not(.flyout_arrow_horiz)').slideUp('fast');
-				
-				shower
-					.attr('data-curopt', '#' + btn[0].id) // This sets the current mode
-					.mouseup();
+				cast.attr('data-curopt', '#' + btn[0].id); // This sets the current mode
 				
 				canv.setMode(mode_id);
 				
 				cur_shape_id = btn[0].id.substr((mode_id+'_').length);
 				current_d = cur_lib.data[cur_shape_id];
 				
-				$('#cast_drawing_shapes')
-					.addClass('tool_button_current')
-					.html(makeCast(current_d));
-			});
-
-			shower.mouseup(function() {
-				canv.setMode(current_d ? mode_id : 'select');
+				cast.html(makeIcon(current_d));
 			});
 			
-			$('#cast_drawing_shapes')
-				.html(makeCast());
+			cast.html(makeIcon());
 		},
 		mouseDown: function(opts) {
 			var mode = canv.getMode();
