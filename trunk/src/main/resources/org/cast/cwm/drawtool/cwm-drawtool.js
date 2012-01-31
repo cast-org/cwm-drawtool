@@ -237,7 +237,13 @@ var CastTabs = {
 
 		}).attr('src', url);
 	},
-	dialog: function(content) {
+	dialog: function(options) {
+		options = $.extend({
+			title: "",
+			content: "",
+			buttons: {}
+		}, options);
+		
 		var $dialog = $('<div class="dialog">\
 			<div class="overlay"></div>\
 		 	<div class="dialog_container">\
@@ -259,13 +265,20 @@ var CastTabs = {
 					containment: 'window'
 			});
 		
-		$content.html(content);
+		if (options.title) $content.before($('<h5 />').append(options.title));
 		
-		$('<input type="button" value="Cancel" />')
-			.appendTo($dialog.find('.dialog_buttons'))
-			.click(function() {
-				$dialog.hide();
-			});
+		$content.append(options.content);
+		
+		if (options.buttons) {
+			for(button in options.buttons) {
+				$('<input type="button" />')
+					.val(button)
+					.appendTo($dialog.find('.dialog_buttons'))
+					.click(function() {
+						options.buttons[$(this).val()]($dialog);
+					});
+			}
+		}
 		
 		return $dialog;
 	}
