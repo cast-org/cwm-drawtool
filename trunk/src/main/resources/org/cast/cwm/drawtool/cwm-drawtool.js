@@ -233,6 +233,38 @@ var CastTabs = {
 			svgCanvas.alignSelectedElements("m", "page");
 
 		}).attr('src', url);
+	},
+	dialog: function(content) {
+		var $dialog = $('<div class="dialog">\
+			<div class="overlay"></div>\
+		 	<div class="dialog_container">\
+		    	<div class="dialog_content"></div>\
+		    	<div class="dialog_buttons"></div>\
+		  	</div>\
+		</div>')
+			.show()
+			.css('left', '50%')
+			.css('top', '50%')
+			.prependTo('body');
+		
+		var $content = $dialog.find('.dialog_content');
+		
+		$dialog
+			.find('.dialog_container')
+			.draggable({
+					cancel:'.dialog_content, .dialog_buttons *',
+					containment: 'window'
+			});
+		
+		$content.html(content);
+		
+		$('<input type="button" value="Cancel" />')
+			.appendTo($dialog.find('.dialog_buttons'))
+			.click(function() {
+				$dialog.hide();
+			});
+		
+		return $dialog;
 	}
 }
 
