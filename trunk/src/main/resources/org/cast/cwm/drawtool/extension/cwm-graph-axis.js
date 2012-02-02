@@ -121,7 +121,7 @@ function makeGraph(x, y, showGrid) {
     var graph = $('<svg>\
         <g id="' + svgCanvas.getNextId() + '" value="Graph">\
             <g>\
-                <rect x="' + x.pixel.min + '" y="' + y.pixel.min + '" width="' + (x.pixel.max - 50) + '" height="' + (y.pixel.max - 10) + '" fill="ivory" stroke="gray"/>\
+                <rect x="' + x.pixel.min + '" y="' + y.pixel.min + '" width="' + (x.pixel.max - 50) + '" height="' + (y.pixel.max - 10) + '" style="fill:ivory;opacity:0.8;stroke:gray;"/>\
                 ' + (showGrid ? '<g class="yGrid" stroke="gray" stroke-dasharray="2,2">\
                     ' + y.html.bg + '\
                 </g>\
