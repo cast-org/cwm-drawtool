@@ -1,75 +1,66 @@
-function makeGraph(x, y) {
+function makeGraph(x, y, showGrid) {
 	//this is required for some odd reason when using a <g /> element in svgedit
 	$('#g_title').remove();
 	$('<input id="g_title" type="hidden" value=""/>')
 		.appendTo('body');
 	
 	x = $.extend({
+		i: 0,
 		min: 0,
-		max: 10
+		max: 10,
+		size: 0,
+		pixel: {
+			i: 0,
+			min: 50,
+			max: 520,
+			size: 0
+		}
 	}, x);
 	
 	y = $.extend({
+		i: 0,
 		min: 0,
-		max: 10
+		max: 10,
+		size: 0,
+		pixel: {
+			i: 0,
+			min: 10,
+			max: 240,
+			size: 0
+		}
 	}, y);
 	
 	console.log([x,y]);
 	
-	var g = {
-		yPixel: {
-			min: 10,
-			max: 240
-		},
-		yBg: {
-			template: '<line x1="40" x2="{xPixelMax}" y1="{yPixel}" y2="{yPixel}"/>',
-			html: ''
-		},
-		yEdge: {
-			template: '\
-				<line x1="35" x2="40" y1="{yPixel}" y2="{yPixel}"/>\
-                <line x1="32" x2="40" y1="{yPixelHalf}" y2="{yPixelHalf}"/>',
-			html: ''
-		},
-		yLabel: {
-			template: '<text x="35" y="{yPixel}">{yVal}</text>',
-			html: ''
-		},
-		xPixel: {
-			min: 40,
-			max: 520
-		},
-		xBg: {
-			template: '<line x1="{xPixel}" x2="{xPixel}" y1="10" y2="{yPixelMax}"/>',
-			html: ''
-		},
-		xEdge: {
-			template: '\
-				<line x1="{xPixelHalf}" x2="{xPixelHalf}" y1="{yPixelMax}" y2="{yPixelMaxPlus}"/>\
-				<line x1="{xPixel}" x2="{xPixel}" y1="{yPixelMax}" y2="{yPixelMaxPlus}"/>',
-			html: ''
-		},
-		xLabel: {
-			template: '<text x="{xPixel}" y="{yPixelMaxPlusPlus}">{xVal}</text>',
-			html: ''
-		}
-	}
+	x.template = {
+		bg: 	'<line x1="' + x.pixel.min + '" x2="' + x.pixel.max + '" y1="{yPixel}" y2="{yPixel}"/>',
+		edge: 	'<line x1="' + (x.pixel.min - 8) + '" x2="' + x.pixel.min + '" y1="{yPixel}" y2="{yPixel}"/>\
+				<line x1="' + (x.pixel.min - 5) + '" x2="' + x.pixel.min + '" y1="{yPixelHalf}" y2="{yPixelHalf}"/>',
+		label: 	'<text x="{xPixel}" y="' + (y.pixel.max + 20) + '">{xVal}</text>'
+	};
 	
-	x.size = (x.max - x.min) / 10;
-	y.size = (y.max - y.min) / 10;
-	g.yPixel.size = (g.yPixel.max - g.yPixel.min) / 10;
-	g.xPixel.size = (g.xPixel.max - g.xPixel.min) / 10;
+	y.template = {
+		bg: 	'<line x1="{xPixel}" x2="{xPixel}" y1="' + y.pixel.min + '" y2="' + y.pixel.max + '"/>',
+		edge: 	'<line x1="{xPixelHalf}" x2="{xPixelHalf}" y1="' + y.pixel.max + '" y2="' + (y.pixel.max + 5) + '"/>\
+				<line x1="{xPixel}" x2="{xPixel}" y1="' + y.pixel.max + '" y2="' + (y.pixel.max + 8) + '"/>',
+		label: 	'<text x="' + (x.pixel.min - 15) + '" y="{yPixel}">{yVal}</text>'
+	};
 	
-	var i = {
-		x: x.max,
-		y: y.min,
-		xPixel: g.xPixel.min,
-		yPixel: g.yPixel.min
+	x.html = {
+		bg: '',
+		edge: '',
+		label: ''
+	};
+	
+	y.html = {
+		bg: '',
+		edge: '',
+		label: ''
 	};
 	
 	function dec(v) {
 		if (parseInt(v) != v) {
-			v = v.toFixed(2);
+			return v.toFixed(2) * 1;
 		}
 		
 		return v;
@@ -77,81 +68,88 @@ function makeGraph(x, y) {
 	
 	function proc(template) {
 		template = template
-			.replace(/[{]xVal[}]/g, dec(i.y))
-			.replace(/[{]yVal[}]/g, dec(i.x))
-			.replace(/[{]xPixel[}]/g, dec(i.xPixel))
-			.replace(/[{]yPixel[}]/g, dec(i.yPixel))
-			.replace(/[{]xPixelMin[}]/g, dec(g.xPixel.min))
-			.replace(/[{]yPixelMin[}]/g, dec(g.yPixel.min))
-			.replace(/[{]xPixelMax[}]/g, dec(g.xPixel.max))
-			.replace(/[{]yPixelMax[}]/g, dec(g.yPixel.max))
-			.replace(/[{]xPixelMaxPlus[}]/g, dec(g.xPixel.max + 10))
-			.replace(/[{]yPixelMaxPlus[}]/g, dec(g.yPixel.max + 10))
-			.replace(/[{]xPixelMaxPlusPlus[}]/g, dec(g.xPixel.max + 20))
-			.replace(/[{]yPixelMaxPlusPlus[}]/g, dec(g.yPixel.max + 20));
+			.replace(/[{]xVal[}]/g, dec(x.i))
+			.replace(/[{]yVal[}]/g, dec(y.i))
+			.replace(/[{]xPixel[}]/g, dec(x.pixel.i))
+			.replace(/[{]yPixel[}]/g, dec(y.pixel.i));
 		
-		var xHalf = i.xPixel + (g.xPixel.size / 2);
-		var yHalf = i.yPixel + (g.yPixel.size / 2);
+		var xHalf = x.pixel.i + (x.pixel.size / 2);
+		var yHalf = y.pixel.i + (y.pixel.size / 2);
 		
-		if (xHalf > g.xPixel.min && xHalf < g.xPixel.max) {
+		if (xHalf > x.pixel.min && xHalf < x.pixel.max) {
 			template = template.replace(/[{]xPixelHalf[}]/g, xHalf);
 		} else {
-			template = template.replace(/[{]xPixelHalf[}]/g, i.xPixel);
+			template = template.replace(/[{]xPixelHalf[}]/g, x.pixel.i);
 		}
 		
-		if (yHalf > g.yPixel.min && yHalf < g.yPixel.max) {
+		if (yHalf > y.pixel.min && yHalf < y.pixel.max) {
 			template = template.replace(/[{]yPixelHalf[}]/g, yHalf);
 		} else {
-			template = template.replace(/[{]yPixelHalf[}]/g, i.yPixel);
+			template = template.replace(/[{]yPixelHalf[}]/g, y.pixel.i);
 		}
 		
 		return template;
 	}
 	
-	while(i.x >= x.min) {
-		g.yBg.html += proc(g.yBg.template);
-		g.yEdge.html += proc(g.yEdge.template);
-		g.yLabel.html += proc(g.yLabel.template);
-		g.xBg.html += proc(g.xBg.template);
-		g.xEdge.html += proc(g.xEdge.template);
-		g.xLabel.html += proc(g.xLabel.template);
+	x.size = (x.max - x.min) / 10;
+	y.size = (y.max - y.min) / 10;
+
+	x.pixel.size = (x.pixel.max - x.pixel.min) / 10;
+	y.pixel.size = (y.pixel.max - y.pixel.min) / 10;
+	
+	x.i = x.min;
+	y.i = y.max;
+	
+	x.pixel.i = x.pixel.min;
+	y.pixel.i = y.pixel.min;
+	
+	while(y.i >= y.min) {
+		y.html.bg 		+= 	proc(y.template.bg);
+		y.html.edge 	+= 	proc(y.template.edge);
+		y.html.label 	+=	proc(y.template.label);
 		
-		i.x -= x.size;
-		i.y += y.size;
-		i.xPixel += g.xPixel.size;
-		i.yPixel += g.yPixel.size;
+		x.html.bg 		+= 	proc(x.template.bg);
+		x.html.edge 	+= 	proc(x.template.edge);
+		x.html.label 	+=	proc(x.template.label);
+		
+		x.i += x.size;
+		y.i -= y.size;
+		
+		x.pixel.i += x.pixel.size;
+		y.pixel.i += y.pixel.size;
 	}
 	
     var graph = $('<svg>\
         <g id="' + svgCanvas.getNextId() + '" value="Graph">\
             <g>\
-                <rect x="40" y="10" width="' + (g.xPixel.max - 40) + '" height="' + (g.yPixel.max - 10) + '" fill="ivory" stroke="gray"/>\
-                <g class="yGrid" stroke="gray" stroke-dasharray="2,2">\
-                    ' + g.yBg.html + '\
+                <rect x="' + x.pixel.min + '" y="' + y.pixel.min + '" width="' + (x.pixel.max - 50) + '" height="' + (y.pixel.max - 10) + '" fill="ivory" stroke="gray"/>\
+                ' + (showGrid ? '<g class="yGrid" stroke="gray" stroke-dasharray="2,2">\
+                    ' + y.html.bg + '\
                 </g>\
                  <g class="xGrid" stroke="gray" stroke-dasharray="2,2">\
-                    ' + g.xBg.html + '\
+                    ' + x.html.bg + '\
                 </g>\
+                ' : '') + '\
             </g>\
             <g class="yAxis" stroke="black" stroke-width="1">\
-                ' + g.yEdge.html + '\
+                ' + y.html.edge + '\
             </g>\
             <g class="yAxisLabels" text-anchor="end">\
-                ' + g.yLabel.html + '\
+                ' + y.html.label + '\
             </g>\
             <g class="xAxis" stroke="black" stroke-width="1">\
-                ' + g.xEdge.html + '\
+                ' + x.html.edge + '\
             </g>\
             <g class="xAxisLabels" text-anchor="middle">\
-                ' + g.xLabel.html + '\
+                ' + x.html.label + '\
             </g>\
-            <text style="font-size: .8em;" x="0" y="' + (g.yPixel.max / 2) + '" fill="red">Y Axis</text>\
-            <text style="font-size: .8em;" x="' + (g.xPixel.max / 2) + '" y="' + (g.yPixel.max + 30) + '" text-anchor="middle" fill="blue">X Axis</text>\
+            <text style="font-size: .8em;" x="0" y="' + (y.pixel.max / 2) + '" fill="red">Y Axis</text>\
+            <text style="font-size: .8em;" x="' + (x.pixel.max / 2) + '" y="' + (y.pixel.max + 30) + '" text-anchor="middle" fill="blue">X Axis</text>\
         </g>\
     </svg>');
 	// if shape is a path but we need to create a rect/ellipse, then remove the path
 	var drawing = svgCanvas.getCurrentDrawing();
-	var g = graph.find('g:first')[0];
+	var g = graph.children()[0];
 	var current_layer = drawing.getCurrentLayer();
 	current_layer.appendChild(g);
 }
@@ -167,31 +165,89 @@ svgEditor.addExtension("cwm-graph-axis", function() {
 			events: {
 				"mouseup": function() {
 					CastTabs.dialog({
-						title: "Please setup graph axis ranges",
-						content: $('<div>\
-							x-min:<input id="xmin" type="text" value="0"/>\
-							x-max:<input id="xmax" type="text" value="10"/>\
-							y-min:<input id="ymin" type="text" value="0"/>\
-							x-max:<input id="ymax" type="text" value="10"/>\
+						title: "Setup your graph",
+						content: $('<table style="width: 100%;border-collapse:collapse; border: none;">\
+							<tr>\
+								<td style="width: 80px;">Y max:<input id="ymax" type="text" value="10" style="width: 25px;"/></td>\
+								<td style="width: 1px; background-color: black;"></td>\
+								<td></td>\
+								<td style="width: 50px;"></td>\
+							</tr>\
+							<tr>\
+								<td style="height: 150px;"></td>\
+								<td style="background-color: black;"></td>\
+								<td></td>\
+								<td></td>\
+							</tr>\
+							<tr>\
+								<td>Y min:<input id="ymin" type="text" value="0" style="width: 25px;"/></td>\
+								<td style="background-color: black; height: 1px;"></td>\
+								<td></td>\
+								<td></td>\
+							</tr>\
+							<tr>\
+								<td></td>\
+								<td style="background-color: black; height: 1px;"></td>\
+								<td style="background-color: black; height: 1px;"></td>\
+								<td style="background-color: black; height: 1px;"></td>\
+							</tr>\
+							<tr>\
+								<td></td>\
+								<td></td>\
+								<td><input id="xmin" type="text" value="0" style="width: 25px;"/></td>\
+								<td><input id="xmax" type="text" value="10" style="width: 25px;"/></td>\
+							</tr>\
+							<tr>\
+								<td></td>\
+								<td></td>\
+								<td>X min:</td>\
+								<td>X max:</td>\
+							</tr>\
 						</div>'),
+						inputs: [{
+							value: 'true',
+							label: 'include grid lines',
+							type: 'checkbox'
+						}],
 						buttons: {
 							Cancel: function(me) {
 								me.remove();
 							},
-							Ok: function(me) {
-								makeGraph({
+							Ok: function(me, inputs) {
+								var x = {
 									min: me.find('#xmin').val() * 1,
-									max: me.find('#xmax').val() * 1,
-								},{
+									max: me.find('#xmax').val() * 1
+								};
+								var y = {
 									min: me.find('#ymin').val() * 1,
 									max: me.find('#ymax').val() * 1
-								});
+								};
+								
+								console.log([isNaN(y.min) , isNaN(y.max) , isNaN(x.min) , isNaN(x.max)]);
+								
+								if (x.min >= x.max || y.min >= y.max || isNaN(y.min) || isNaN(y.max) || isNaN(x.min) || isNaN(x.max)) {
+									me.hide();
+									CastTabs.dialog({
+										title: "Problem with your settings",
+										content: 'It looks like there is a problem with your settings. Please ensure that min is smaller than max and that you have input numbers.',
+										buttons: {
+											Ok: function(me1) {
+												me1.remove();
+												me.show();
+											}
+										}
+									});
+									return;
+								} 
+								
+								makeGraph(x, y, inputs[0].obj.is(':checked'));
 								
 								svgEditor.canvas.setMode('select');
 								
 								me.remove();
 							}
-						}
+						},
+						width: 350
 					});
 				}
 			}

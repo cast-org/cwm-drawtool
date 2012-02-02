@@ -241,13 +241,14 @@ var CastTabs = {
 		options = $.extend({
 			title: "",
 			content: "",
-			buttons: {}
+			buttons: {},
+			inputs: []
 		}, options);
 		
 		var $dialog = $('<div class="dialog">\
 			<div class="overlay"></div>\
-		 	<div class="dialog_container">\
-		    	<div class="dialog_content"></div>\
+		 	<div class="dialog_container" style="overflow: show; height: auto;">\
+		    	<div class="dialog_content" style="overflow: show; height: auto;"></div>\
 		    	<div class="dialog_buttons"></div>\
 		  	</div>\
 		</div>')
@@ -256,6 +257,11 @@ var CastTabs = {
 			.css('top', '50%')
 			.prependTo('body');
 		
+		var $container = $dialog.find('.dialog_container');
+		
+		if (options.width) $container.width(options.width);
+		if (options.height) $container.height(options.height);
+			
 		var $content = $dialog.find('.dialog_content');
 		
 		$dialog
@@ -265,20 +271,43 @@ var CastTabs = {
 					containment: 'window'
 			});
 		
-		if (options.title) $content.before($('<h5 />').append(options.title));
+		if (options.title) $content.before($('<h5 style="text-align: left; padding: 0px; margin: 10px;"/>').append(options.title));
 		
 		$content.append(options.content);
+		
+		var $buttons = $dialog.find('.dialog_buttons');
+		
+		if (options.inputs) {
+			for(input in options.inputs) {
+				options.inputs[input].obj = $('<input type="' + options.inputs[input].type + '" />')
+					.val(options.inputs[input].value)
+					.css('cursor', 'pointer')
+					.appendTo($buttons);
+				
+				$('<span />')
+					.text(options.inputs[input].label)
+					.appendTo($buttons)
+					.css('cursor', 'pointer')
+					.click(function() {
+						options.inputs[input].obj.click();
+					});
+			}
+		}
 		
 		if (options.buttons) {
 			for(button in options.buttons) {
 				$('<input type="button" />')
 					.val(button)
-					.appendTo($dialog.find('.dialog_buttons'))
+					.appendTo($buttons)
 					.click(function() {
-						options.buttons[$(this).val()]($dialog);
+						options.buttons[$(this).val()]($dialog, options.inputs);
 					});
 			}
 		}
+		
+		$container
+			.css('margin-left', (-1 *($container.width() / 2)) + 'px')
+			.css('margin-top', (-1 * ($container.height() / 2)) + 'px');
 		
 		return $dialog;
 	}
