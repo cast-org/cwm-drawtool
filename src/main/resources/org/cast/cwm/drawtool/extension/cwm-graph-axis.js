@@ -67,20 +67,28 @@ function makeGraph(x, y) {
 		yPixel: g.yPixel.min
 	};
 	
+	function dec(v) {
+		if (parseInt(v) != v) {
+			v = v.toFixed(2);
+		}
+		
+		return v;
+	}
+	
 	function proc(template) {
 		template = template
-			.replace(/[{]xVal[}]/g, i.y)
-			.replace(/[{]yVal[}]/g, i.x)
-			.replace(/[{]xPixel[}]/g, i.xPixel)
-			.replace(/[{]yPixel[}]/g, i.yPixel)
-			.replace(/[{]xPixelMin[}]/g, g.xPixel.min)
-			.replace(/[{]yPixelMin[}]/g, g.yPixel.min)
-			.replace(/[{]xPixelMax[}]/g, g.xPixel.max)
-			.replace(/[{]yPixelMax[}]/g, g.yPixel.max)
-			.replace(/[{]xPixelMaxPlus[}]/g, g.xPixel.max + 10)
-			.replace(/[{]yPixelMaxPlus[}]/g, g.yPixel.max + 10)
-			.replace(/[{]xPixelMaxPlusPlus[}]/g, g.xPixel.max + 20)
-			.replace(/[{]yPixelMaxPlusPlus[}]/g, g.yPixel.max + 20);
+			.replace(/[{]xVal[}]/g, dec(i.y))
+			.replace(/[{]yVal[}]/g, dec(i.x))
+			.replace(/[{]xPixel[}]/g, dec(i.xPixel))
+			.replace(/[{]yPixel[}]/g, dec(i.yPixel))
+			.replace(/[{]xPixelMin[}]/g, dec(g.xPixel.min))
+			.replace(/[{]yPixelMin[}]/g, dec(g.yPixel.min))
+			.replace(/[{]xPixelMax[}]/g, dec(g.xPixel.max))
+			.replace(/[{]yPixelMax[}]/g, dec(g.yPixel.max))
+			.replace(/[{]xPixelMaxPlus[}]/g, dec(g.xPixel.max + 10))
+			.replace(/[{]yPixelMaxPlus[}]/g, dec(g.yPixel.max + 10))
+			.replace(/[{]xPixelMaxPlusPlus[}]/g, dec(g.xPixel.max + 20))
+			.replace(/[{]yPixelMaxPlusPlus[}]/g, dec(g.yPixel.max + 20));
 		
 		var xHalf = i.xPixel + (g.xPixel.size / 2);
 		var yHalf = i.yPixel + (g.yPixel.size / 2);
