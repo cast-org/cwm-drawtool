@@ -30,20 +30,18 @@ function makeGraph(x, y, showGrid) {
 		}
 	}, y);
 	
-	console.log([x,y]);
-	
 	x.template = {
 		bg: 	'<line x1="' + x.pixel.min + '" x2="' + x.pixel.max + '" y1="{yPixel}" y2="{yPixel}"/>',
-		edge: 	'<line x1="' + (x.pixel.min - 8) + '" x2="' + x.pixel.min + '" y1="{yPixel}" y2="{yPixel}"/>\
-				<line x1="' + (x.pixel.min - 5) + '" x2="' + x.pixel.min + '" y1="{yPixelHalf}" y2="{yPixelHalf}"/>',
-		label: 	'<text x="{xPixel}" y="' + (y.pixel.max + 20) + '">{xVal}</text>'
+		edge: 	'<line x1="' + (x.pixel.min - 5) + '" x2="' + x.pixel.min + '" y1="{yPixel}" y2="{yPixel}"/>\
+				<line x1="' + (x.pixel.min - 2) + '" x2="' + x.pixel.min + '" y1="{yPixelHalf}" y2="{yPixelHalf}"/>',
+		label: 	'<text x="{xPixel}" y="' + (y.pixel.max + 15) + '">{xVal}</text>'
 	};
 	
 	y.template = {
 		bg: 	'<line x1="{xPixel}" x2="{xPixel}" y1="' + y.pixel.min + '" y2="' + y.pixel.max + '"/>',
-		edge: 	'<line x1="{xPixelHalf}" x2="{xPixelHalf}" y1="' + y.pixel.max + '" y2="' + (y.pixel.max + 5) + '"/>\
-				<line x1="{xPixel}" x2="{xPixel}" y1="' + y.pixel.max + '" y2="' + (y.pixel.max + 8) + '"/>',
-		label: 	'<text x="' + (x.pixel.min - 15) + '" y="{yPixel}">{yVal}</text>'
+		edge: 	'<line x1="{xPixel}" x2="{xPixel}" y1="' + y.pixel.max + '" y2="' + (y.pixel.max + 5) + '"/>\
+				<line x1="{xPixelHalf}" x2="{xPixelHalf}" y1="' + y.pixel.max + '" y2="' + (y.pixel.max + 2) + '"/>',
+		label: 	'<text x="' + (x.pixel.min - 7) + '" y="{yPixelText}" style="top: 10px; position: relative;">{yVal}</text>'
 	};
 	
 	x.html = {
@@ -71,7 +69,8 @@ function makeGraph(x, y, showGrid) {
 			.replace(/[{]xVal[}]/g, dec(x.i))
 			.replace(/[{]yVal[}]/g, dec(y.i))
 			.replace(/[{]xPixel[}]/g, dec(x.pixel.i))
-			.replace(/[{]yPixel[}]/g, dec(y.pixel.i));
+			.replace(/[{]yPixel[}]/g, dec(y.pixel.i))
+			.replace(/[{]yPixelText[}]/g, dec(y.pixel.i) + 3);
 		
 		var xHalf = x.pixel.i + (x.pixel.size / 2);
 		var yHalf = y.pixel.i + (y.pixel.size / 2);
@@ -143,10 +142,11 @@ function makeGraph(x, y, showGrid) {
             <g class="xAxisLabels" text-anchor="middle">\
                 ' + x.html.label + '\
             </g>\
-            <text style="font-size: .8em;" x="0" y="' + (y.pixel.max / 2) + '" fill="red">Y Axis</text>\
-            <text style="font-size: .8em;" x="' + (x.pixel.max / 2) + '" y="' + (y.pixel.max + 30) + '" text-anchor="middle" fill="blue">X Axis</text>\
+            <text style="font-size: .8em;" x="0" y="' + (y.pixel.max / 2) + '"	>Y Axis</text>\
+            <text style="font-size: .8em;" x="' + (x.pixel.max / 2) + '" y="' + (y.pixel.max + 30) + '">X Axis</text>\
         </g>\
     </svg>');
+   	
 	// if shape is a path but we need to create a rect/ellipse, then remove the path
 	var drawing = svgCanvas.getCurrentDrawing();
 	var g = graph.children()[0];
@@ -168,28 +168,156 @@ svgEditor.addExtension("cwm-graph-axis", function() {
 						title: "Setup your graph",
 						content: $('<table style="width: 100%;border-collapse:collapse; border: none;">\
 							<tr>\
-								<td style="width: 80px;">Y max:<input id="ymax" type="text" value="10" style="width: 25px;"/></td>\
+								<td style="width: 80px; vertical-align: top;">Y max:<input id="ymax" type="text" value="10" style="width: 25px;"/></td>\
 								<td style="width: 1px; background-color: black;"></td>\
-								<td></td>\
-								<td style="width: 50px;"></td>\
+								<td colspan="2" rowspan="3">\
+									<style type="text/css">\
+									.genGraph {\
+										border-collapse:collapse;\
+										width: 100%;\
+										border-collapse:collapse;\
+									}\
+									.genGraph, .genGraph td {\
+										border:1px dashed black;\
+									}\
+									</style>\
+									<table class="genGraph">\
+										<tr>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+										</tr>\
+										<tr>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+										</tr>\
+										<tr>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+										</tr>\
+										<tr>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+										</tr>\
+										<tr>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+										</tr>\
+										<tr>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+										</tr>\
+										<tr>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+										</tr>\
+										<tr>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+										</tr>\
+										<tr>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+										</tr>\
+										<tr>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+											<td>&nbsp;</td>\
+										</tr>\
+									</table>\
+								</td>\
 							</tr>\
 							<tr>\
-								<td style="height: 150px;"></td>\
+								<td></td>\
 								<td style="background-color: black;"></td>\
-								<td></td>\
-								<td></td>\
 							</tr>\
 							<tr>\
 								<td>Y min:<input id="ymin" type="text" value="0" style="width: 25px;"/></td>\
 								<td style="background-color: black; height: 1px;"></td>\
-								<td></td>\
-								<td></td>\
 							</tr>\
 							<tr>\
 								<td></td>\
 								<td style="background-color: black; height: 1px;"></td>\
 								<td style="background-color: black; height: 1px;"></td>\
-								<td style="background-color: black; height: 1px;"></td>\
+								<td style="background-color: black; height: 1px; width: 50px;"></td>\
 							</tr>\
 							<tr>\
 								<td></td>\
@@ -207,7 +335,19 @@ svgEditor.addExtension("cwm-graph-axis", function() {
 						inputs: [{
 							value: 'true',
 							label: 'include grid lines',
-							type: 'checkbox'
+							type: 'checkbox',
+							events: {
+								mouseup: function() {
+									var o = $(this);
+									setTimeout(function() {
+										if (o.is(':checked')) {
+											$('.genGraph').show();
+										} else {
+											$('.genGraph').hide();
+										}
+									}, 1);
+								}
+							}
 						}],
 						buttons: {
 							Cancel: function(me) {
@@ -249,6 +389,14 @@ svgEditor.addExtension("cwm-graph-axis", function() {
 						},
 						width: 350
 					});
+					
+					$('.genGraph')
+						.parent()
+						.height(
+							$('.genGraph').height() + 4
+						);
+					
+					$('.genGraph').hide();
 				}
 			}
 		}],

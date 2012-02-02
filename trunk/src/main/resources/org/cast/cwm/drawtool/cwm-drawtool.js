@@ -249,7 +249,7 @@ var CastTabs = {
 			<div class="overlay"></div>\
 		 	<div class="dialog_container" style="overflow: show; height: auto;">\
 		    	<div class="dialog_content" style="overflow: show; height: auto;"></div>\
-		    	<div class="dialog_buttons"></div>\
+		    	<div class="dialog_buttons" style="padding: 5px;"></div>\
 		  	</div>\
 		</div>')
 			.show()
@@ -284,12 +284,24 @@ var CastTabs = {
 					.css('cursor', 'pointer')
 					.appendTo($buttons);
 				
+				if (options.inputs[input].events) {
+					for(event in options.inputs[input].events) {
+						options.inputs[input].obj.bind(event, options.inputs[input].events[event]);
+					}
+				}
+				
 				$('<span />')
 					.text(options.inputs[input].label)
 					.appendTo($buttons)
 					.css('cursor', 'pointer')
 					.click(function() {
 						options.inputs[input].obj.click();
+					})
+					.mousedown(function() {
+						options.inputs[input].obj.mousedown();
+					})
+					.mouseup(function() {
+						options.inputs[input].obj.mouseup();
 					});
 			}
 		}
