@@ -10,6 +10,25 @@ if (typeof starterImageUrls == "undefined") {
 	starterImageUrls = [];
 }
 
+//This is a hack into $.svgIcons because svg-edit doesn't allow for an override on icon width
+var svgIcons = $.svgIcons;
+$.svgIcons = function(path, conf) {
+	if (path.match('cast/images/cast_icons.svg')) {
+		conf.w = 70;
+		conf.h = 30;
+	} else if (path.match('cast/images/svg_edit_icons.svg')) {
+		conf.w = 34;
+		conf.h = 30;
+	} else if (path.match('svgedit/extensions/ext-shapes.xml')) {
+		conf.w = 24;
+		conf.h = 24;
+	} else {
+		conf.w = 44;
+		conf.h = 19;
+	}
+	
+	return svgIcons(path, conf);
+};
 /**
  * Callback controls for the tabs
  */
@@ -27,7 +46,7 @@ var CastTabs = {
 		"draw": [64,30],
 		"type": [64,30],
 		"edit": [64,30],
-		"zoom":[44,19]
+		"zoom":[64,30]
 	},
 		
 	skipActivate: false, // true, if clicking a tab should activate a tool.
@@ -252,10 +271,10 @@ var CastTabs = {
 		    	<div class="dialog_buttons" style="padding: 5px;"></div>\
 		  	</div>\
 		</div>')
-			.show()
 			.css('left', '50%')
 			.css('top', '50%')
-			.prependTo('body');
+			.prependTo('body')
+			.show();
 		
 		var $container = $dialog.find('.dialog_container');
 		
@@ -422,7 +441,7 @@ svgEditor.addExtension("Cast Tabs", function() {
 			 */
 			$.resizeSvgIcons({
 				"#cast_drawing_starters .svg_icon": [72,30],
-				"#cast_web_image .svg_icon": [46,30]
+				"#cast_web_image .svg_icon": [72,30]
 			});
 			
 			/*
@@ -493,11 +512,11 @@ svgEditor.ready(function() {
 		
 			// Tools
 		 	"#tool_fhpath .svg_icon": [40,30],
-			"#tool_line .svg_icon": [20,30],
-			"#tool_ellipse .svg_icon": [26,30],
-			"#tool_rect .svg_icon": [40,30],
-			"#tool_path .svg_icon": [47,30],
-			"#tool_text .svg_icon": [17,30],
+			"#tool_line .svg_icon": [34,30],
+			"#tool_ellipse .svg_icon": [34,30],
+			"#tool_rect .svg_icon": [34,30],
+			"#tool_path .svg_icon": [34,30],
+			"#tool_text .svg_icon": [34,30],
 			
 			// Tiny Context Buttons
 			"#tool_move_top .svg_icon": [12,12],
@@ -516,8 +535,8 @@ svgEditor.ready(function() {
 			"#tool_delete_multi .svg_icon": [12,12],
 			
 			// Undo/Redo
-			"#tool_undo .svg_icon": [39,19],
-			"#tool_redo .svg_icon": [38,19],
+			"#tool_undo .svg_icon": [34,30],
+			"#tool_redo .svg_icon": [34,30],
 			
 	});
 	
