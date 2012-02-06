@@ -110,10 +110,10 @@ body {
 #svg_editor .tool_button_current,
 #svg_editor .tool_button_disabled,
 #svg_editor .push_button_pressed {
-	
 	height: 30px;
 	float:left;
 	width:auto;
+	min-width: 24px;
 	background-color:transparent !important;
 	border:1px solid transparent !important;
 	-moz-border-radius:3px !important;
@@ -211,6 +211,14 @@ li.ui-tabs-selected a#top_edit { background-position: 0 -30px; }
 	top:4px;
 }
 
+#top_zoom {
+	height: 24px;
+	width: 52px;
+	overflow:hidden;
+	-moz-border-radius:3px !important;
+	border-radius: 3px;
+}
+
 li.last-tab.ui-state-hover div,
 li.last-tab.ui-tabs-selected div {
 	background-color:#D7D7D7;
@@ -278,9 +286,11 @@ li.last-tab.ui-tabs-selected div {
 #history_panel {
 	position:absolute;
 	right:0px;
-	top:2px;
+	top:0px;
 	border-left: 1px dashed #FFFFFF;
 	padding-left:8px;
+	overflow: hidden ! important;
+	height: 30px;
 }
 
 #history_panel .push_button,
@@ -288,9 +298,10 @@ li.last-tab.ui-tabs-selected div {
 	line-height:normal;
 	background:none;
 	border:none !important;
-	height:auto;
+	height:26px;
 	margin:2px 8px 0px 0px;
 	padding:1px;
+	cursor: pointer;
 }
 
 #history_panel .push_button:hover {
@@ -415,6 +426,13 @@ li.last-tab.ui-tabs-selected div {
 	padding:7px;
 }
 
+.cwmGraphAxis rect {
+	fill: ivory;
+	opacity: 0.8;
+	stroke: gray;
+}
 
-
+.cwmGraphAxis text {
+	font-size: .8em;
+}
 

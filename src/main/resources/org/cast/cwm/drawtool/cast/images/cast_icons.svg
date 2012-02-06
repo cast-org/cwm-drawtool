@@ -58,7 +58,7 @@
 		</svg>
 	</g>
 	<g id="cast_drawing_graph_axis">
-		<svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="46px" height="30px" viewBox="0 0 46 30" enable-background="new 0 0 46 30" xml:space="preserve">
+		<svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="70" height="30" viewBox="0 0 70 30">
 			<text transform="matrix(1 0 0 1 0.0713 27.7773)" font-family="'Arial'" font-size="9">Graph Axis</text>
 			<g>
 				<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="23.9844" y1="14.0425" x2="14.0112" y2="14.0425" gradientTransform="matrix(1 0 0 -1 4 24)">
@@ -198,7 +198,7 @@
 		</svg>
 	</g>
 	<g id="cast_tab_zoom">
-		<svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="44px" height="19px" viewBox="0 0 44 19" enable-background="new 0 0 44 19" xml:space="preserve">
+		<svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="30px" viewBox="0 0 64 30" enable-background="new 0 0 64 3" xml:space="preserve">
 			<g>
 				<text transform="matrix(1 0 0 1 20.3047 12.666)" font-family="'Arial'" font-size="9">Zoom</text>
 			</g>

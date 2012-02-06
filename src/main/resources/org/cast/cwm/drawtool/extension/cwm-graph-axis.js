@@ -127,8 +127,8 @@ function makeGraph(x, y, showGrid) {
 	}
 	
     var graph = $('<svg>\
-        <g id="' + svgCanvas.getNextId() + '" value="Graph" locked="true">\
-			<rect x="' + x.pixel.min + '" y="' + y.pixel.min + '" width="' + (x.pixel.max - 50) + '" height="' + (y.pixel.max - 10) + '" style="fill:ivory;opacity:0.8;stroke:gray;"/>\
+        <g class="cwmGraphAxis" id="' + svgCanvas.getNextId() + '" value="Graph" locked="true">\
+			<rect x="' + x.pixel.min + '" y="' + y.pixel.min + '" width="' + (x.pixel.max - 50) + '" height="' + (y.pixel.max - 10) + '"/>\
             ' + y.html.bg + x.html.bg + '\
             <g class="yAxis" stroke="black" stroke-width="1">\
                 ' + y.html.edge + '\
@@ -142,8 +142,8 @@ function makeGraph(x, y, showGrid) {
             <g class="xAxisLabels" text-anchor="middle">\
                 ' + x.html.label + '\
             </g>\
-            <text style="font-size: .8em;" x="0" y="' + (y.pixel.max / 2) + '">Y Axis</text>\
-            <text style="font-size: .8em;" x="' + (x.pixel.max / 2) + '" y="' + (y.pixel.max + 30) + '">X Axis</text>\
+            <text x="0" y="' + (y.pixel.max / 2) + '">Y Axis</text>\
+            <text x="' + (x.pixel.max / 2) + '" y="' + (y.pixel.max + 30) + '">X Axis</text>\
         </g>\
     </svg>');
    	
@@ -156,7 +156,12 @@ function makeGraph(x, y, showGrid) {
 
 svgEditor.addExtension("cwm-graph-axis", function() {
 	return {
-		svgicons: "svgedit/extensions/ext-shapes.xml",
+		svgicons: serverImagePath + "cast/images/cast_icons.svg",
+		callback: function() {
+			$.resizeSvgIcons({
+				"#cast_drawing_graph_axis .svg_icon": [70,30]
+			});
+		},
 		buttons: [{
 			id: "cast_drawing_graph_axis",
 			type: "context",
@@ -399,11 +404,6 @@ svgEditor.addExtension("cwm-graph-axis", function() {
 					$('.genGraph').hide();
 				}
 			}
-		}],
-		callback: function() {
-			$.resizeSvgIcons({
-				"#cast_drawing_graph_axis .svg_icon": [46,30],
-			});
-		}
+		}]
 	}
 });
