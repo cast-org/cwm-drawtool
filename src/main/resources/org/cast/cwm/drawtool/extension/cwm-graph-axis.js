@@ -9,6 +9,7 @@ function makeGraph(x, y, showGrid) {
 		min: 0,
 		max: 10,
 		size: 0,
+		d: 11,
 		pixel: {
 			i: 0,
 			min: 50,
@@ -22,6 +23,7 @@ function makeGraph(x, y, showGrid) {
 		min: 0,
 		max: 10,
 		size: 0,
+		d: 11,
 		pixel: {
 			i: 0,
 			min: 10,
@@ -90,14 +92,19 @@ function makeGraph(x, y, showGrid) {
 		return template;
 	}
 	
-	x.size = (x.max - x.min) / 10;
-	y.size = (y.max - y.min) / 10;
+	x.d = $.jqplot.LinearTickGenerator(x.min.toFixed(2), x.max, 1, 11);
+	y.d = $.jqplot.LinearTickGenerator(y.min.toFixed(2), y.max, 1, 11);
+	
+	console.log([x.d, y.d]);
+	
+	x.size = x.d[4];
+	y.size = y.d[4];
 
 	x.pixel.size = (x.pixel.max - x.pixel.min) / 10;
 	y.pixel.size = (y.pixel.max - y.pixel.min) / 10;
 	
-	x.i = x.min;
-	y.i = y.max;
+	x.i = x.d[0];
+	y.i = y.d[1];
 	
 	x.pixel.i = x.pixel.min;
 	y.pixel.i = y.pixel.min;
