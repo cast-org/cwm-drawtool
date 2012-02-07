@@ -388,6 +388,7 @@ svgEditor.addExtension("cwm-graph-axis", function() {
 								makeGraph(x, y, inputs[0].obj.is(':checked'));
 								
 								svgEditor.canvas.setMode('select');
+								svgCanvas.groupSelectedElements();
 								
 								me.remove();
 							}
