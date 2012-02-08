@@ -3,7 +3,7 @@
 
 = Usage Instructions =
 
-The source code contains CAST's plugin to SVG-edit, but not SVG-edit itself.  We have confirmed that it is compatible with SVG-edit revision 2048, and these build instructions are based on that version.  It may work with later versions of SVG-edit but this has not yet been tested.
+The source code contains CAST's plugin to SVG-edit, but not SVG-edit itself.  The current version should work with the latest SVG-edit trunk code - which is version 1.6 alpha as of February 2012.
 
   # Check out the source from [http://code.google.com/p/cwm-drawtool/source/checkout the source page].
   # Confirm that your subversion client has correctly followed the external reference and included the proper version of SVG-edit in a subdirectory called `src/main/resources/org/cast/cwm/drawtool/svgedit`.
