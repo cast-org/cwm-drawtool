@@ -8,13 +8,14 @@ function makeGraph(x, y, showGrid) {
 		i: 0,
 		min: 0,
 		max: 10,
-		size: 0,
-		d: 11,
+		d: [],
+		label: [],
 		pixel: {
 			i: 0,
 			min: 50,
 			max: 520,
-			size: 0
+			tick: [],
+			halfTick: []
 		}
 	}, x);
 	
@@ -22,27 +23,28 @@ function makeGraph(x, y, showGrid) {
 		i: 0,
 		min: 0,
 		max: 10,
-		size: 0,
-		d: 11,
+		d: [],
+		label: [],
 		pixel: {
 			i: 0,
 			min: 10,
 			max: 240,
-			size: 0
+			tick: [],
+			halfTick: []
 		}
 	}, y);
 	
 	x.template = {
-		bg: 	'<line x1="' + x.pixel.min + '" x2="' + x.pixel.max + '" y1="{yPixel}" y2="{yPixel}"/>',
-		edge: 	'<line x1="' + (x.pixel.min - 5) + '" x2="' + x.pixel.min + '" y1="{yPixel}" y2="{yPixel}"/>\
-				<line x1="' + (x.pixel.min - 2) + '" x2="' + x.pixel.min + '" y1="{yPixelHalf}" y2="{yPixelHalf}"/>',
+		bg: 	'<line x1="{xPixel}" x2="{xPixel}" y1="' + y.pixel.min + '" y2="' + y.pixel.max + '" style="{xPixelBGStyle}"/>',
+		edge: 	'<line x1="{xPixel}" x2="{xPixel}" y1="' + y.pixel.max + '" y2="' + (y.pixel.max + 5) + '"/>\
+				<line x1="{xPixelHalf}" x2="{xPixelHalf}" y1="' + y.pixel.max + '" y2="' + (y.pixel.max + 2) + '"/>',
 		label: 	'<text x="{xPixel}" y="' + (y.pixel.max + 15) + '">{xVal}</text>'
 	};
 	
 	y.template = {
-		bg: 	'<line x1="{xPixel}" x2="{xPixel}" y1="' + y.pixel.min + '" y2="' + y.pixel.max + '"/>',
-		edge: 	'<line x1="{xPixel}" x2="{xPixel}" y1="' + y.pixel.max + '" y2="' + (y.pixel.max + 5) + '"/>\
-				<line x1="{xPixelHalf}" x2="{xPixelHalf}" y1="' + y.pixel.max + '" y2="' + (y.pixel.max + 2) + '"/>',
+		bg: 	'<line x1="' + x.pixel.min + '" x2="' + x.pixel.max + '" y1="{yPixel}" y2="{yPixel}" style="{yPixelBGStyle}"/>',
+		edge: 	'<line x1="' + (x.pixel.min - 5) + '" x2="' + x.pixel.min + '" y1="{yPixel}" y2="{yPixel}"/>\
+				<line x1="' + (x.pixel.min - 2) + '" x2="' + x.pixel.min + '" y1="{yPixelHalf}" y2="{yPixelHalf}"/>',
 		label: 	'<text x="' + (x.pixel.min - 7) + '" y="{yPixelText}" style="top: 10px; position: relative;">{yVal}</text>'
 	};
 	
@@ -68,61 +70,93 @@ function makeGraph(x, y, showGrid) {
 	
 	function proc(template) {
 		template = template
-			.replace(/[{]xVal[}]/g, dec(x.i))
-			.replace(/[{]yVal[}]/g, dec(y.i))
-			.replace(/[{]xPixel[}]/g, dec(x.pixel.i))
-			.replace(/[{]yPixel[}]/g, dec(y.pixel.i))
-			.replace(/[{]yPixelText[}]/g, dec(y.pixel.i) + 3);
-		
-		var xHalf = x.pixel.i + (x.pixel.size / 2);
-		var yHalf = y.pixel.i + (y.pixel.size / 2);
-		
-		if (xHalf > x.pixel.min && xHalf < x.pixel.max) {
-			template = template.replace(/[{]xPixelHalf[}]/g, xHalf);
-		} else {
-			template = template.replace(/[{]xPixelHalf[}]/g, x.pixel.i);
-		}
-		
-		if (yHalf > y.pixel.min && yHalf < y.pixel.max) {
-			template = template.replace(/[{]yPixelHalf[}]/g, yHalf);
-		} else {
-			template = template.replace(/[{]yPixelHalf[}]/g, y.pixel.i);
-		}
+			.replace(/[{]xVal[}]/g, dec(x.label[x.i] || 0))
+			.replace(/[{]yVal[}]/g, dec(y.label[y.i] || 0))
+			.replace(/[{]xPixel[}]/g, x.pixel.tick[x.i] || 0)
+			.replace(/[{]yPixel[}]/g, y.pixel.tick[y.i] || 0)
+			.replace(/[{]yPixelText[}]/g, y.pixel.tick[y.i] + 3 || 0)
+			.replace(/[{]xPixelBGStyle[}]/g, (x.label[x.i] == 0 ? 'stroke-width:2' : ''))
+			.replace(/[{]yPixelBGStyle[}]/g, (y.label[y.i] == 0 ? 'stroke-width:2' : ''))
+			.replace(/[{]xPixelHalf[}]/g, x.pixel.halfTick[x.i] || 0)
+			.replace(/[{]yPixelHalf[}]/g, y.pixel.halfTick[y.i] || 0);
 		
 		return template;
 	}
 	
-	x.d = $.jqplot.LinearTickGenerator(x.min.toFixed(2), x.max, 1, 11);
-	y.d = $.jqplot.LinearTickGenerator(y.min.toFixed(2), y.max, 1, 11);
-	
-	console.log([x.d, y.d]);
-	
-	x.size = x.d[4];
-	y.size = y.d[4];
-
-	x.pixel.size = (x.pixel.max - x.pixel.min) / 10;
-	y.pixel.size = (y.pixel.max - y.pixel.min) / 10;
-	
-	x.i = x.d[0];
-	y.i = y.d[1];
-	
-	x.pixel.i = x.pixel.min;
-	y.pixel.i = y.pixel.min;
-	
-	while(y.i >= y.min) {
-		y.html.bg 		+= 	proc(y.template.bg);
-		y.html.edge 	+= 	proc(y.template.edge);
-		y.html.label 	+=	proc(y.template.label);
+	function processGridPlacement(o) {
+		o.d = $.jqplot.LinearTickGenerator(o.min.toFixed(2), o.max, 1, 10);
 		
-		x.html.bg 		+= 	proc(x.template.bg);
-		x.html.edge 	+= 	proc(x.template.edge);
-		x.html.label 	+=	proc(x.template.label);
+		o.label.push(o.min);
 		
-		x.i += x.size;
-		y.i -= y.size;
+		while(o.label[o.label.length - 1] < o.max) {
+			var tick = o.label[o.label.length - 1] + o.d[4];
+			o.label.push(tick);
+		}
 		
-		x.pixel.i += x.pixel.size;
-		y.pixel.i += y.pixel.size;
+		if (o.label[o.label.length - 1] >= o.max) o.label.pop();
+		
+		o.label.push(o.max);
+		
+		var addedZero = false;
+		$.each(o.label, function(i) {
+			if (!addedZero) {
+				if (o.label[i + 1] && o.label[i]) {
+					if (o.label[i + 1] > 0 && o.label[i] < 0 && o.label[0] != 0) {
+						o.label.splice(i + 1, 0, 0);
+						addedZero = true;
+					}
+				}
+			}
+		});
+		
+		var labelTotal = o.max - o.min;
+		var pixelTotal = o.pixel.max - o.pixel.min;
+		var tick = pixelTotal / labelTotal;
+		
+		$.each(o.label, function(i) {	
+			var pixelTick = tick * (o.label[i] - o.label[0]);
+			o.pixel.tick.push(pixelTick + o.pixel.min);
+		});
+		
+		$.each(o.pixel.tick, function(i) {
+			var halfTick = (o.pixel.tick[i + 1] - o.pixel.tick[i]) / 2;
+			
+			o.pixel.halfTick.push(o.pixel.tick[i] + halfTick);
+		});
+		
+		return o;
+	}
+	
+	x = processGridPlacement(x);
+	y = processGridPlacement(y);
+	
+	x.i = 0;
+	y.i = y.label.length - 1;
+	
+	y.label = y.label.reverse();
+	
+	var go = true;
+	while(go) {
+		var xStop = true, yStop = true;
+		
+		if (x.label[x.i] <= x.max) {
+			x.html.bg 		+= 	proc(x.template.bg);
+			x.html.edge 	+= 	proc(x.template.edge);
+			x.html.label 	+=	proc(x.template.label);
+			xStop = false;
+		}
+		
+		if (y.label[y.i] >= y.min) {
+			y.html.bg 		+= 	proc(y.template.bg);
+			y.html.edge 	+= 	proc(y.template.edge);
+			y.html.label 	+=	proc(y.template.label);
+			yStop = false;
+		}
+		
+		x.i++;
+		y.i--;
+		
+		if (xStop && yStop) go = false; 
 	}
 	
 	if (showGrid) {
@@ -140,13 +174,13 @@ function makeGraph(x, y, showGrid) {
             <g class="yAxis" stroke="black" stroke-width="1">\
                 ' + y.html.edge + '\
             </g>\
-            <g class="yAxisLabels" text-anchor="end">\
+            <g class="yAxisLabel" text-anchor="end">\
                 ' + y.html.label + '\
             </g>\
             <g class="xAxis" stroke="black" stroke-width="1">\
                 ' + x.html.edge + '\
             </g>\
-            <g class="xAxisLabels" text-anchor="middle">\
+            <g class="xAxisLabel" text-anchor="middle">\
                 ' + x.html.label + '\
             </g>\
             <text x="0" y="' + (y.pixel.max / 2) + '">Y Axis</text>\
@@ -374,8 +408,6 @@ svgEditor.addExtension("cwm-graph-axis", function() {
 									min: me.find('#ymin').val() * 1,
 									max: me.find('#ymax').val() * 1
 								};
-								
-								console.log([isNaN(y.min) , isNaN(y.max) , isNaN(x.min) , isNaN(x.max)]);
 								
 								if (x.min >= x.max || y.min >= y.max || isNaN(y.min) || isNaN(y.max) || isNaN(x.min) || isNaN(x.max)) {
 									me.hide();
