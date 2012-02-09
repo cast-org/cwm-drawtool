@@ -35,27 +35,31 @@ function makeGraph(x, y, showGrid) {
 	}, y);
 	
 	x.template = {
-		bg: 	'<line x1="{xPixel}" x2="{xPixel}" y1="' + y.pixel.min + '" y2="' + y.pixel.max + '" style="{xPixelBGStyle}"/>',
-		edge: 	'<line x1="{xPixel}" x2="{xPixel}" y1="' + y.pixel.max + '" y2="' + (y.pixel.max + 5) + '"/>\
-				<line x1="{xPixelHalf}" x2="{xPixelHalf}" y1="' + y.pixel.max + '" y2="' + (y.pixel.max + 2) + '"/>',
-		label: 	'<text x="{xPixel}" y="' + (y.pixel.max + 15) + '">{xVal}</text>'
+		bg: 	'<line x1="{xPixelTick}" x2="{xPixelTick}" y1="' + y.pixel.min + '" y2="' + y.pixel.max + '"/>',
+		bgZero: '<line x1="{xPixelTick}" x2="{xPixelTick}" y1="' + y.pixel.min + '" y2="' + y.pixel.max + '" style="stroke-width:2"/>',
+		edge: 	'<line x1="{xPixelTick}" x2="{xPixelTick}" y1="{yPixelBaseTickStart}" y2="{yPixelBaseTickStop}"/>\
+				<line x1="{xPixelHalfTick}" x2="{xPixelHalfTick}" y1="{yPixelBaseHalfTickStart}" y2="{yPixelBaseHalfTickStop}"/>',
+		label: 	'<text x="{xPixelTick}" y="{yPixelBaseLabel}">{xVal}</text>'
 	};
 	
 	y.template = {
-		bg: 	'<line x1="' + x.pixel.min + '" x2="' + x.pixel.max + '" y1="{yPixel}" y2="{yPixel}" style="{yPixelBGStyle}"/>',
-		edge: 	'<line x1="' + (x.pixel.min - 5) + '" x2="' + x.pixel.min + '" y1="{yPixel}" y2="{yPixel}"/>\
-				<line x1="' + (x.pixel.min - 2) + '" x2="' + x.pixel.min + '" y1="{yPixelHalf}" y2="{yPixelHalf}"/>',
-		label: 	'<text x="' + (x.pixel.min - 7) + '" y="{yPixelText}" style="top: 10px; position: relative;">{yVal}</text>'
+		bg: 	'<line x1="' + x.pixel.min + '" x2="' + x.pixel.max + '" y1="{yPixelTick}" y2="{yPixelTick}"/>',
+		bgZero: '<line x1="' + x.pixel.min + '" x2="' + x.pixel.max + '" y1="{yPixelTick}" y2="{yPixelTick}" style="stroke-width:2"/>',
+		edge: 	'<line x1="{xPixelBaseTickStart}" x2="{xPixelBaseTickStop}" y1="{yPixelTick}" y2="{yPixelTick}"/>\
+				<line x1="{xPixelBaseHalfTickStart}" x2="{xPixelBaseHalfTickStop}" y1="{yPixelHalfTick}" y2="{yPixelHalfTick}"/>',
+		label: 	'<text x="{xPixelBaseLabel}" y="{yPixelText}" style="top: 10px; position: relative;">{yVal}</text>'
 	};
 	
 	x.html = {
 		bg: '',
+		bgZero: '',
 		edge: '',
 		label: ''
 	};
 	
 	y.html = {
 		bg: '',
+		bgZero: '',
 		edge: '',
 		label: ''
 	};
@@ -69,16 +73,29 @@ function makeGraph(x, y, showGrid) {
 	}
 	
 	function proc(template) {
+		var xPixelBase = x.label.indexOf(0);
+		var yPixelBase = y.label.indexOf(0);
+		
 		template = template
 			.replace(/[{]xVal[}]/g, dec(x.label[x.i] || 0))
 			.replace(/[{]yVal[}]/g, dec(y.label[y.i] || 0))
-			.replace(/[{]xPixel[}]/g, x.pixel.tick[x.i] || 0)
-			.replace(/[{]yPixel[}]/g, y.pixel.tick[y.i] || 0)
+			.replace(/[{]xPixelTick[}]/g, x.pixel.tick[x.i] || 0)
+			.replace(/[{]yPixelTick[}]/g, y.pixel.tick[y.i] || 0)
 			.replace(/[{]yPixelText[}]/g, y.pixel.tick[y.i] + 3 || 0)
-			.replace(/[{]xPixelBGStyle[}]/g, (x.label[x.i] == 0 ? 'stroke-width:2' : ''))
-			.replace(/[{]yPixelBGStyle[}]/g, (y.label[y.i] == 0 ? 'stroke-width:2' : ''))
-			.replace(/[{]xPixelHalf[}]/g, x.pixel.halfTick[x.i] || 0)
-			.replace(/[{]yPixelHalf[}]/g, y.pixel.halfTick[y.i] || 0);
+			.replace(/[{]xPixelHalfTick[}]/g, x.pixel.halfTick[x.i] || 0)
+			.replace(/[{]yPixelHalfTick[}]/g, y.pixel.halfTick[y.i] || 0)
+			.replace(/[{]xPixelBaseLabel[}]/g, (xPixelBase > -1 ? x.pixel.tick[xPixelBase] : 0) - 9)
+			.replace(/[{]yPixelBaseLabel[}]/g, (yPixelBase > -1 ? y.pixel.tick[yPixelBase] : 0) + 15)
+			.replace(/[{]xPixelBaseTickStart[}]/g, (xPixelBase > -1 ? x.pixel.tick[xPixelBase] : 0))
+			.replace(/[{]xPixelBaseTickStop[}]/g, (xPixelBase > -1 ? x.pixel.tick[xPixelBase] : 0) - 5)
+			.replace(/[{]yPixelBaseTickStart[}]/g, (yPixelBase > -1 ? y.pixel.tick[yPixelBase] : 0))
+			.replace(/[{]yPixelBaseTickStop[}]/g, (yPixelBase > -1 ? y.pixel.tick[yPixelBase] : 0) + 5)
+			.replace(/[{]yPixelBaseHalfTickStart[}]/g, (yPixelBase > -1 ? y.pixel.tick[yPixelBase] : 0))
+			.replace(/[{]yPixelBaseHalfTickStop[}]/g, (yPixelBase > -1 ? y.pixel.tick[yPixelBase] : 0) + 2)
+			.replace(/[{]yPixelBaseTick[}]/g, (yPixelBase > -1 ? y.pixel.tick[yPixelBase] : 0) + 15)
+			.replace(/[{]xPixelBaseHalfTickStart[}]/g, (xPixelBase > -1 ? x.pixel.tick[xPixelBase] : 0))
+			.replace(/[{]xPixelBaseHalfTickStop[}]/g, (xPixelBase > -1 ? x.pixel.tick[xPixelBase] : 0) - 2)
+			.replace(/[{]yPixelBaseHalfTick[}]/g, (yPixelBase > -1 ? y.pixel.tick[yPixelBase] : 0) + 15);
 		
 		return template;
 	}
@@ -143,6 +160,9 @@ function makeGraph(x, y, showGrid) {
 			x.html.bg 		+= 	proc(x.template.bg);
 			x.html.edge 	+= 	proc(x.template.edge);
 			x.html.label 	+=	proc(x.template.label);
+			
+			if (x.label[x.i] == 0) x.html.bgZero += proc(x.template.bgZero);
+			
 			xStop = false;
 		}
 		
@@ -150,6 +170,9 @@ function makeGraph(x, y, showGrid) {
 			y.html.bg 		+= 	proc(y.template.bg);
 			y.html.edge 	+= 	proc(y.template.edge);
 			y.html.label 	+=	proc(y.template.label);
+			
+			if (y.label[y.i] == 0) y.html.bgZero += proc(y.template.bgZero);
+			
 			yStop = false;
 		}
 		
@@ -171,6 +194,8 @@ function makeGraph(x, y, showGrid) {
         <g class="cwmGraphAxis" id="' + svgCanvas.getNextId() + '" value="Graph" locked="true">\
 			<rect x="' + x.pixel.min + '" y="' + y.pixel.min + '" width="' + (x.pixel.max - 50) + '" height="' + (y.pixel.max - 10) + '"/>\
             ' + y.html.bg + x.html.bg + '\
+            <g class="xGrid" stroke="black">' + x.html.bgZero + '</g>\
+			<g class="yGrid" stroke="black">' + y.html.bgZero + '</g>\
             <g class="yAxis" stroke="black" stroke-width="1">\
                 ' + y.html.edge + '\
             </g>\
