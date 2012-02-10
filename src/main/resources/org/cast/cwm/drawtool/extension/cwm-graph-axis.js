@@ -1,4 +1,4 @@
-function makeGraph(x, y, showGrid) {
+function makeGraph(x, y, showGrid, suppressPopup) {
 	//this is required for some odd reason when using a <g /> element in svgedit
 	$('#g_title').remove();
 	$('<input id="g_title" type="hidden" value=""/>')
@@ -34,21 +34,22 @@ function makeGraph(x, y, showGrid) {
 		}
 	}, y);
 	
-	if (x.min >= x.max || y.min >= y.max || isNaN(y.min) || isNaN(y.max) || isNaN(x.min) || isNaN(x.max)) {
-		$('.cwmDialog:last').hide();
-		CastTabs.dialog({
-			title: "Problem with your settings",
-			content: 'It looks like there is a problem with your settings. Please ensure that min is smaller than max and that you have input numbers.',
-			buttons: {
-				Ok: function(me) {
-					me.remove();
-					$('.cwmDialog:last').show();
+	if (!suppressPopup)
+		if (x.min >= x.max || y.min >= y.max || isNaN(y.min) || isNaN(y.max) || isNaN(x.min) || isNaN(x.max)) {
+			$('.cwmDialog:last').hide();
+			CastTabs.dialog({
+				title: "Problem with your settings",
+				content: 'It looks like there is a problem with your settings. Please ensure that min is smaller than max and that you have input numbers.',
+				buttons: {
+					Ok: function(me) {
+						me.remove();
+						$('.cwmDialog:last').show();
+					}
 				}
-			}
-		});
-		
-		return $('<svg />');
-	}
+			});
+			
+			return $('<svg />');
+		}
 	
 	x.template = {
 		bg: 	'<line x1="{xPixelTick}" x2="{xPixelTick}" y1="' + y.pixel.min + '" y2="' + y.pixel.max + '"/>',
@@ -336,7 +337,7 @@ svgEditor.addExtension("cwm-graph-axis", function() {
 						}, {
 							min: $('#ymin').val() * 1,
 							max: $('#ymax').val() * 1
-						}, $('input.gridLines:first').is(':checked'));
+						}, $('input.gridLines:first').is(':checked'), true);
 						
 						var g = graph.find('g:first');
 						if (g.length) {
