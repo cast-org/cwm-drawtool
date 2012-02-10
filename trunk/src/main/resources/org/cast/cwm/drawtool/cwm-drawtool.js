@@ -33,6 +33,19 @@ $(function() {
 
 	//prevent ungrouping with double click
 	$('#svgcanvas').unbind('dblclick');
+	$(window)
+		.mouseup(function() {
+			var layer = $(svgCanvas.getCurrentDrawing().getCurrentLayer());
+			var g = layer.find('.cwmGraphAxis');
+			if (g.length) {
+				$('#g_panel')
+					.css('position', 'absolute')
+					.css('top', '-99999999999px');
+			} else {
+				$('#g_panel')
+					.css('position', '');
+			}
+		});
 });
 /**
  * Callback controls for the tabs
