@@ -229,10 +229,14 @@ svgEditor.addExtension("cwm-shapes", function() {
 			shape_buttons.mouseup(function(evt) {
 				lock = false;
 				
+				$('.tool_button_current').removeClass('tool_button_current');
+				
 				cast.addClass('tool_button_current');
 				
 				var btn = $(evt.target).closest('div.tool_button');
 				if(!btn.length) return;
+				
+				btn.addClass('tool_button_current');
 				
 				cast.attr('data-curopt', '#' + btn[0].id); // This sets the current mode
 				console.log(mode_id);
@@ -241,10 +245,10 @@ svgEditor.addExtension("cwm-shapes", function() {
 				cur_shape_id = btn[0].id.substr((mode_id+'_').length);
 				current_d = cur_lib.data[cur_shape_id];
 				
-				cast.html(makeIcon(current_d));
+				//cast.html(makeIcon(current_d));
 			});
 			
-			cast.html(makeIcon());
+			//cast.html(makeIcon());
 		},
 		mouseDown: function(opts) {
 			var mode = canv.getMode();
