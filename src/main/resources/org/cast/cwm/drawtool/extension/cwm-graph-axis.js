@@ -257,7 +257,7 @@ svgEditor.addExtension("cwm-graph-axis", function() {
 			id: "cast_drawing_graph_axis",
 			type: "context",
 			panel: "buttons_starters",
-			title: "Graph Axis",
+			title: "Graph",
 			events: {
 				"mouseup": function() {
 					CastTabs.dialog({
