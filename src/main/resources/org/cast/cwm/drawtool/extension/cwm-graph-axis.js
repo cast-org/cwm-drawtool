@@ -96,7 +96,7 @@ function makeGraph(x, y, showGrid, suppressPopup) {
 		var yPixelBase = y.label.indexOf(0);
 		
 		if (xPixelBase < 0) xPixelBase = 0;
-		if (yPixelBase < 0) yPixelBase = y.pixel.tick.length - 1;
+		if (yPixelBase < 0) yPixelBase = 0;
 		 
 		template = template
 			.replace(/[{]xVal[}]/g, dec(x.label[x.i] || 0))
@@ -122,7 +122,7 @@ function makeGraph(x, y, showGrid, suppressPopup) {
 		return template;
 	}
 	
-	function processGridPlacement(o) {
+	function processGridPlacement(o, reverse) {
 		var min = (o.min + '').split('.')[0] * 1;
 		o.d = $.jqplot.LinearTickGenerator(min, o.max, 1, 11);
 		
@@ -157,7 +157,7 @@ function makeGraph(x, y, showGrid, suppressPopup) {
 		var tick = pixelTotal / labelTotal;
 		
 		$.each(o.label, function(i) {	
-			var pixelTick = tick * (o.label[i] - o.label[0]);
+			var pixelTick = tick * (reverse ? o.max - o.label[i] : o.label[i] - o.label[0]);
 			o.pixel.tick.push(pixelTick + o.pixel.min);
 		});
 		
@@ -171,12 +171,10 @@ function makeGraph(x, y, showGrid, suppressPopup) {
 	}
 	
 	x = processGridPlacement(x);
-	y = processGridPlacement(y);
+	y = processGridPlacement(y, true);
 	
 	x.i = 0;
-	y.i = y.label.length - 1;
-	
-	y.label = y.label.reverse();
+	y.i = 0;
 	
 	var go = true;
 	while(go) {
@@ -196,11 +194,11 @@ function makeGraph(x, y, showGrid, suppressPopup) {
 			xStop = false;
 		}
 		
-		if (y.label[y.i] >= y.min) {
+		if (y.label[y.i] <= y.max) {
 			y.html.bg 		+= 	proc(y.template.bg);
 			y.html.tick 	+= 	proc(y.template.tick);
 			
-			if (y.label[y.i] > y.min)
+			if (y.label[y.i] < y.max)
 				y.html.halfTick += 	proc(y.template.halfTick);
 			
 			y.html.label 	+=	proc(y.template.label);
@@ -211,7 +209,7 @@ function makeGraph(x, y, showGrid, suppressPopup) {
 		}
 		
 		x.i++;
-		y.i--;
+		y.i++;
 		
 		if (xStop && yStop) go = false; 
 	}
