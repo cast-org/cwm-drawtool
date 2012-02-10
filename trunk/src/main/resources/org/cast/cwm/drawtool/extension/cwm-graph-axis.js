@@ -76,6 +76,9 @@ function makeGraph(x, y, showGrid) {
 		var xPixelBase = x.label.indexOf(0);
 		var yPixelBase = y.label.indexOf(0);
 		
+		if (xPixelBase < 0) xPixelBase = 0;
+		if (yPixelBase < 0) yPixelBase = y.pixel.tick.length - 1;
+		 
 		template = template
 			.replace(/[{]xVal[}]/g, dec(x.label[x.i] || 0))
 			.replace(/[{]yVal[}]/g, dec(y.label[y.i] || 0))
