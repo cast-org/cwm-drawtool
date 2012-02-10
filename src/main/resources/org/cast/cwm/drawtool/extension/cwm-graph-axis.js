@@ -266,7 +266,7 @@ svgEditor.addExtension("cwm-graph-axis", function() {
 							<tr>\
 								<td style="width: 80px; vertical-align: top;">Y max:<input id="ymax" type="text" value="10" style="width: 25px;"/></td>\
 								<td></td>\
-								<td colspan="3" rowspan="2" id="graphPreview"></td>\
+								<td colspan="3" rowspan="2" id="graphPreview" style="height: 140px;"></td>\
 							</tr>\
 							<tr>\
 								<td>Y min:<input id="ymin" type="text" value="0" style="width: 25px;"/></td>\
