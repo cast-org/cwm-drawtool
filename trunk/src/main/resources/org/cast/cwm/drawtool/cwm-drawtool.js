@@ -269,7 +269,7 @@ var CastTabs = {
 			inputs: []
 		}, options);
 		
-		var $dialog = $('<div class="dialog">\
+		var $dialog = $('<div class="dialog cwmDialog">\
 			<div class="overlay"></div>\
 		 	<div class="dialog_container" style="overflow: show; height: auto;">\
 		    	<div class="dialog_content" style="overflow: show; height: auto;"></div>\

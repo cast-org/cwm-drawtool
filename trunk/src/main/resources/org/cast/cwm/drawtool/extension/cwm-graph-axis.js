@@ -34,33 +34,51 @@ function makeGraph(x, y, showGrid) {
 		}
 	}, y);
 	
+	if (x.min >= x.max || y.min >= y.max || isNaN(y.min) || isNaN(y.max) || isNaN(x.min) || isNaN(x.max)) {
+		$('.cwmDialog:last').hide();
+		CastTabs.dialog({
+			title: "Problem with your settings",
+			content: 'It looks like there is a problem with your settings. Please ensure that min is smaller than max and that you have input numbers.',
+			buttons: {
+				Ok: function(me) {
+					me.remove();
+					$('.cwmDialog:last').show();
+				}
+			}
+		});
+		
+		return $('<svg />');
+	}
+	
 	x.template = {
 		bg: 	'<line x1="{xPixelTick}" x2="{xPixelTick}" y1="' + y.pixel.min + '" y2="' + y.pixel.max + '"/>',
 		bgZero: '<line x1="{xPixelTick}" x2="{xPixelTick}" y1="' + y.pixel.min + '" y2="' + y.pixel.max + '" style="stroke-width:2"/>',
-		edge: 	'<line x1="{xPixelTick}" x2="{xPixelTick}" y1="{yPixelBaseTickStart}" y2="{yPixelBaseTickStop}"/>\
-				<line x1="{xPixelHalfTick}" x2="{xPixelHalfTick}" y1="{yPixelBaseHalfTickStart}" y2="{yPixelBaseHalfTickStop}"/>',
+		tick: 	'<line x1="{xPixelTick}" x2="{xPixelTick}" y1="{yPixelBaseTickStart}" y2="{yPixelBaseTickStop}"/>',
+		halfTick:'<line x1="{xPixelHalfTick}" x2="{xPixelHalfTick}" y1="{yPixelBaseHalfTickStart}" y2="{yPixelBaseHalfTickStop}"/>',
 		label: 	'<text x="{xPixelTick}" y="{yPixelBaseLabel}">{xVal}</text>'
 	};
 	
 	y.template = {
 		bg: 	'<line x1="' + x.pixel.min + '" x2="' + x.pixel.max + '" y1="{yPixelTick}" y2="{yPixelTick}"/>',
 		bgZero: '<line x1="' + x.pixel.min + '" x2="' + x.pixel.max + '" y1="{yPixelTick}" y2="{yPixelTick}" style="stroke-width:2"/>',
-		edge: 	'<line x1="{xPixelBaseTickStart}" x2="{xPixelBaseTickStop}" y1="{yPixelTick}" y2="{yPixelTick}"/>\
-				<line x1="{xPixelBaseHalfTickStart}" x2="{xPixelBaseHalfTickStop}" y1="{yPixelHalfTick}" y2="{yPixelHalfTick}"/>',
+		tick: 	'<line x1="{xPixelBaseTickStart}" x2="{xPixelBaseTickStop}" y1="{yPixelTick}" y2="{yPixelTick}"/>',
+		halfTick:'<line x1="{xPixelBaseHalfTickStart}" x2="{xPixelBaseHalfTickStop}" y1="{yPixelHalfTick}" y2="{yPixelHalfTick}"/>',
 		label: 	'<text x="{xPixelBaseLabel}" y="{yPixelText}" style="top: 10px; position: relative;">{yVal}</text>'
 	};
 	
 	x.html = {
 		bg: '',
 		bgZero: '',
-		edge: '',
+		tick: '',
+		halfTick: '',
 		label: ''
 	};
 	
 	y.html = {
 		bg: '',
 		bgZero: '',
-		edge: '',
+		tick: '',
+		halfTick: '',
 		label: ''
 	};
 	
@@ -104,7 +122,7 @@ function makeGraph(x, y, showGrid) {
 	}
 	
 	function processGridPlacement(o) {
-		o.d = $.jqplot.LinearTickGenerator(o.min.toFixed(2), o.max, 1, 10);
+		o.d = $.jqplot.LinearTickGenerator(o.min.toFixed(2), o.max, 1, 11);
 		
 		o.label.push(o.min);
 		
@@ -161,7 +179,11 @@ function makeGraph(x, y, showGrid) {
 		
 		if (x.label[x.i] <= x.max) {
 			x.html.bg 		+= 	proc(x.template.bg);
-			x.html.edge 	+= 	proc(x.template.edge);
+			x.html.tick 	+= 	proc(x.template.tick);
+			
+			if (x.label[x.i] < x.max)
+				x.html.halfTick	+= 	proc(x.template.halfTick);
+			
 			x.html.label 	+=	proc(x.template.label);
 			
 			if (x.label[x.i] == 0) x.html.bgZero += proc(x.template.bgZero);
@@ -171,7 +193,11 @@ function makeGraph(x, y, showGrid) {
 		
 		if (y.label[y.i] >= y.min) {
 			y.html.bg 		+= 	proc(y.template.bg);
-			y.html.edge 	+= 	proc(y.template.edge);
+			y.html.tick 	+= 	proc(y.template.tick);
+			
+			if (y.label[y.i] > y.min)
+				y.html.halfTick += 	proc(y.template.halfTick);
+			
 			y.html.label 	+=	proc(y.template.label);
 			
 			if (y.label[y.i] == 0) y.html.bgZero += proc(y.template.bgZero);
@@ -193,20 +219,22 @@ function makeGraph(x, y, showGrid) {
 		y.html.bg = '';
 	}
 	
-    var graph = $('<svg>\
+    return $('<svg>\
         <g class="cwmGraphAxis" id="' + svgCanvas.getNextId() + '" value="Graph" locked="true">\
 			<rect x="' + x.pixel.min + '" y="' + y.pixel.min + '" width="' + (x.pixel.max - 50) + '" height="' + (y.pixel.max - 10) + '"/>\
             ' + y.html.bg + x.html.bg + '\
             <g class="xGrid" stroke="black">' + x.html.bgZero + '</g>\
 			<g class="yGrid" stroke="black">' + y.html.bgZero + '</g>\
             <g class="yAxis" stroke="black" stroke-width="1">\
-                ' + y.html.edge + '\
+                ' + y.html.tick + '\
+                ' + y.html.halfTick + '\
             </g>\
             <g class="yAxisLabel" text-anchor="end">\
                 ' + y.html.label + '\
             </g>\
             <g class="xAxis" stroke="black" stroke-width="1">\
-                ' + x.html.edge + '\
+                ' + x.html.tick + '\
+                ' + x.html.halfTick + '\
             </g>\
             <g class="xAxisLabel" text-anchor="middle">\
                 ' + x.html.label + '\
@@ -215,12 +243,6 @@ function makeGraph(x, y, showGrid) {
             <text x="' + (x.pixel.max / 2) + '" y="' + (y.pixel.max + 30) + '">X Axis</text>\
         </g>\
     </svg>');
-   	
-	// if shape is a path but we need to create a rect/ellipse, then remove the path
-	var drawing = svgCanvas.getCurrentDrawing();
-	var g = graph.children()[0];
-	var current_layer = drawing.getCurrentLayer();
-	current_layer.appendChild(g);
 }
 
 svgEditor.addExtension("cwm-graph-axis", function() {
@@ -243,169 +265,20 @@ svgEditor.addExtension("cwm-graph-axis", function() {
 						content: $('<table style="width: 100%;border-collapse:collapse; border: none;">\
 							<tr>\
 								<td style="width: 80px; vertical-align: top;">Y max:<input id="ymax" type="text" value="10" style="width: 25px;"/></td>\
-								<td style="width: 1px; background-color: black;"></td>\
-								<td colspan="2" rowspan="3">\
-									<style type="text/css">\
-									.genGraph {\
-										border-collapse:collapse;\
-										width: 100%;\
-										border-collapse:collapse;\
-									}\
-									.genGraph, .genGraph td {\
-										border:1px dashed black;\
-									}\
-									</style>\
-									<table class="genGraph">\
-										<tr>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-										</tr>\
-										<tr>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-										</tr>\
-										<tr>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-										</tr>\
-										<tr>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-										</tr>\
-										<tr>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-										</tr>\
-										<tr>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-										</tr>\
-										<tr>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-										</tr>\
-										<tr>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-										</tr>\
-										<tr>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-										</tr>\
-										<tr>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-											<td>&nbsp;</td>\
-										</tr>\
-									</table>\
-								</td>\
-							</tr>\
-							<tr>\
 								<td></td>\
-								<td style="background-color: black;"></td>\
+								<td colspan="3" rowspan="2" id="graphPreview"></td>\
 							</tr>\
 							<tr>\
 								<td>Y min:<input id="ymin" type="text" value="0" style="width: 25px;"/></td>\
-								<td style="background-color: black; height: 1px;"></td>\
-							</tr>\
-							<tr>\
-								<td></td>\
-								<td style="background-color: black; height: 1px;"></td>\
-								<td style="background-color: black; height: 1px;"></td>\
-								<td style="background-color: black; height: 1px; width: 50px;"></td>\
 							</tr>\
 							<tr>\
 								<td></td>\
 								<td></td>\
-								<td><input id="xmin" type="text" value="0" style="width: 25px;"/></td>\
-								<td><input id="xmax" type="text" value="10" style="width: 25px;"/></td>\
+								<td style="text-align: center;"><input id="xmin" type="text" value="0" style="width: 25px;"/><br />X min:</td>\
+								<td style="width:100px;"></td>\
+								<td style="text-align: center;"><input id="xmax" type="text" value="10" style="width: 25px;"/><br />X max:</td>\
 							</tr>\
-							<tr>\
-								<td></td>\
-								<td></td>\
-								<td>X min:</td>\
-								<td>X max:</td>\
-							</tr>\
-						</div>'),
+						</table>'),
 						inputs: [{
 							value: 'true',
 							label: 'include grid lines',
@@ -437,22 +310,13 @@ svgEditor.addExtension("cwm-graph-axis", function() {
 									max: me.find('#ymax').val() * 1
 								};
 								
-								if (x.min >= x.max || y.min >= y.max || isNaN(y.min) || isNaN(y.max) || isNaN(x.min) || isNaN(x.max)) {
-									me.hide();
-									CastTabs.dialog({
-										title: "Problem with your settings",
-										content: 'It looks like there is a problem with your settings. Please ensure that min is smaller than max and that you have input numbers.',
-										buttons: {
-											Ok: function(me1) {
-												me1.remove();
-												me.show();
-											}
-										}
-									});
-									return;
-								} 
+								var graph = makeGraph(x, y, inputs[0].obj.is(':checked'));
 								
-								makeGraph(x, y, inputs[0].obj.is(':checked'));
+								// if shape is a path but we need to create a rect/ellipse, then remove the path
+								var drawing = svgCanvas.getCurrentDrawing();
+								var g = graph.children()[0];
+								var current_layer = drawing.getCurrentLayer();
+								current_layer.appendChild(g);
 								
 								svgEditor.canvas.setMode('select');
 								svgCanvas.groupSelectedElements();
@@ -463,13 +327,41 @@ svgEditor.addExtension("cwm-graph-axis", function() {
 						width: 350
 					});
 					
-					$('.genGraph')
-						.parent()
-						.height(
-							$('.genGraph').height() + 4
-						);
+					$('.cwmDialog input:checkbox').addClass('gridLines');
 					
-					$('.genGraph').hide();
+					$('#xmin,#xmax,#ymin,#ymax,input.gridLines:first').change(function() {
+						var graph = makeGraph({
+							min: $('#xmin').val() * 1,
+							max: $('#xmax').val() * 1
+						}, {
+							min: $('#ymin').val() * 1,
+							max: $('#ymax').val() * 1
+						}, $('input.gridLines:first').is(':checked'));
+						
+						var g = graph.find('g:first');
+						if (g.length) {
+							g.attr('transform', 'scale(0.45)');
+						}
+					
+						var gP = $('#graphPreview')
+							.html(graph);
+						
+						if (!g.length) {
+							$('#xmin,#ymin').val(0);
+							$('#xmax,#ymax').val(10);
+							$(this).change();
+						}
+					})
+					.keyup(function() {
+						$(this).change();
+					})
+					.mouseup(function() {
+						var me = $(this);
+						setTimeout(function() {
+							me.change();
+						}, 1);
+					})
+					.change();
 				}
 			}
 		}]
