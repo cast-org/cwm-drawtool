@@ -123,9 +123,10 @@ function makeGraph(x, y, showGrid, suppressPopup) {
 	}
 	
 	function processGridPlacement(o) {
-		o.d = $.jqplot.LinearTickGenerator(o.min.toFixed(2), o.max, 1, 11);
+		var min = (o.min + '').split('.')[0] * 1;
+		o.d = $.jqplot.LinearTickGenerator(min, o.max, 1, 11);
 		
-		o.label.push(o.min);
+		o.label.push(min);
 		
 		while(o.label[o.label.length - 1] < o.max) {
 			var tick = o.label[o.label.length - 1] + o.d[4];
@@ -135,6 +136,8 @@ function makeGraph(x, y, showGrid, suppressPopup) {
 		if (o.label[o.label.length - 1] >= o.max) o.label.pop();
 		
 		o.label.push(o.max);
+		
+		o.label[0] = o.min;
 		
 		var addedZero = false;
 		$.each(o.label, function(i) {
@@ -147,6 +150,7 @@ function makeGraph(x, y, showGrid, suppressPopup) {
 				}
 			}
 		});
+		console.log(o);
 		
 		var labelTotal = o.max - o.min;
 		var pixelTotal = o.pixel.max - o.pixel.min;
