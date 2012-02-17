@@ -8,6 +8,7 @@ function makeGraph(x, y, showGrid, suppressPopup) {
 		i: 0,
 		min: 0,
 		max: 10,
+		id: 'X Axis',
 		d: [],
 		label: [],
 		pixel: {
@@ -23,6 +24,7 @@ function makeGraph(x, y, showGrid, suppressPopup) {
 		i: 0,
 		min: 0,
 		max: 10,
+		id: 'Y Axis',
 		d: [],
 		label: [],
 		pixel: {
@@ -242,8 +244,8 @@ function makeGraph(x, y, showGrid, suppressPopup) {
             <g class="xAxisLabel" text-anchor="middle">\
                 ' + x.html.label + '\
             </g>\
-            <text x="0" y="' + (y.pixel.max / 2) + '">Y Axis</text>\
-            <text x="' + (x.pixel.max / 2) + '" y="' + (y.pixel.max + 30) + '">X Axis</text>\
+            <text x="0" y="' + (y.pixel.max / 2) + '">' + y.id + '</text>\
+            <text x="' + (x.pixel.max / 2) + '" y="' + (y.pixel.max + 30) + '">' + x.id + '</text>\
         </g>\
     </svg>');
 }
@@ -269,7 +271,10 @@ svgEditor.addExtension("cwm-graph-axis", function() {
 							<tr>\
 								<td style="width: 80px; vertical-align: top;">Y max:<input id="ymax" type="text" value="10" style="width: 25px;"/></td>\
 								<td></td>\
-								<td colspan="3" rowspan="2" id="graphPreview" style="height: 140px;"></td>\
+								<td colspan="3" rowspan="3" id="graphPreview" style="height: 140px;"></td>\
+							</tr>\
+							<tr>\
+								<td style="width: 80px; vertical-align: top;">Y label:<br /><input id="yid" type="text" value="Y Axis" style="width: 75px;"/></td>\
 							</tr>\
 							<tr>\
 								<td>Y min:<input id="ymin" type="text" value="0" style="width: 25px;"/></td>\
@@ -278,7 +283,7 @@ svgEditor.addExtension("cwm-graph-axis", function() {
 								<td></td>\
 								<td></td>\
 								<td style="text-align: center;"><input id="xmin" type="text" value="0" style="width: 25px;"/><br />X min:</td>\
-								<td style="width:100px;"></td>\
+								<td style="width:100px;text-align: center;"><input id="xid" type="text" value="X Axis" style="width: 75px;"/><br />X label:</td>\
 								<td style="text-align: center;"><input id="xmax" type="text" value="10" style="width: 25px;"/><br />X max:</td>\
 							</tr>\
 						</table>'),
@@ -306,11 +311,13 @@ svgEditor.addExtension("cwm-graph-axis", function() {
 							Ok: function(me, inputs) {
 								var x = {
 									min: me.find('#xmin').val() * 1,
-									max: me.find('#xmax').val() * 1
+									max: me.find('#xmax').val() * 1,
+									id: me.find('#xid').val()
 								};
 								var y = {
 									min: me.find('#ymin').val() * 1,
-									max: me.find('#ymax').val() * 1
+									max: me.find('#ymax').val() * 1,
+									id: me.find('#yid').val()
 								};
 								
 								var graph = makeGraph(x, y, inputs[0].obj.is(':checked'));
@@ -332,13 +339,15 @@ svgEditor.addExtension("cwm-graph-axis", function() {
 					
 					$('.cwmDialog input:checkbox').addClass('gridLines');
 					
-					$('#xmin,#xmax,#ymin,#ymax,input.gridLines:first').change(function() {
+					$('#xmin,#xmax,#xid,#ymin,#ymax,#yid,input.gridLines:first').change(function() {
 						var graph = makeGraph({
 							min: $('#xmin').val() * 1,
-							max: $('#xmax').val() * 1
+							max: $('#xmax').val() * 1,
+							id: $('#xid').val()
 						}, {
 							min: $('#ymin').val() * 1,
-							max: $('#ymax').val() * 1
+							max: $('#ymax').val() * 1,
+							id: $('#yid').val()
 						}, $('input.gridLines:first').is(':checked'), true);
 						
 						var g = graph.find('g:first');
