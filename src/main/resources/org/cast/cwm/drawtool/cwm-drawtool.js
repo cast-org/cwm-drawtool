@@ -562,8 +562,15 @@ svgEditor.ready(function() {
 	 * Resize Fill/Stroke Color to smaller size
 	 */
 	
-	$("#fill_color svg").attr('width', 12);
-	$("#stroke_color svg").attr('width', 12);
+	$("#fill_color")
+		.find('svg,rect')
+		.attr('width', 12)
+		.attr('height', 12);
+	
+	$("#stroke_color")
+		.find('svg,rect')
+		.attr('width', 12)
+		.attr('height', 12);
 
 	/*
 	 * Set default font to something human readable
