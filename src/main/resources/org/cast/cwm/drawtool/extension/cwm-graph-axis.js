@@ -266,30 +266,32 @@ svgEditor.addExtension("cwm-graph-axis", function() {
 			events: {
 				"mouseup": function() {
 					CastTabs.dialog({
-						title: "Setup your graph",
-						content: $('<table style="width: 100%;border-collapse:collapse; border: none;">\
-							<tr>\
-								<td style="width: 80px; vertical-align: top;">Y max:<input id="ymax" type="text" value="10" style="width: 25px;"/></td>\
-								<td></td>\
-								<td colspan="3" rowspan="3" id="graphPreview" style="height: 140px;"></td>\
-							</tr>\
-							<tr>\
-								<td style="width: 80px; vertical-align: top;">Y label:<br /><input id="yid" type="text" value="Y Axis" style="width: 75px;"/></td>\
-							</tr>\
-							<tr>\
-								<td>Y min:<input id="ymin" type="text" value="0" style="width: 25px;"/></td>\
-							</tr>\
-							<tr>\
-								<td></td>\
-								<td></td>\
-								<td style="text-align: center;"><input id="xmin" type="text" value="0" style="width: 25px;"/><br />X min:</td>\
-								<td style="width:100px;text-align: center;"><input id="xid" type="text" value="X Axis" style="width: 75px;"/><br />X label:</td>\
-								<td style="text-align: center;"><input id="xmax" type="text" value="10" style="width: 25px;"/><br />X max:</td>\
-							</tr>\
-						</table>'),
+						title: "Set up your graph",
+						content: 
+$('<table style="width:100%; border-collapse:collapse; border:none; overflow:visible;">\
+  <tr>\
+    <td style="width: 45px"><label for="ymax">Y max</label></td>\
+    <td style="width: 30px; text-align:right;"><input id="ymax" type="text" value="10" style="width: 30px;"/></td>\
+    <td colspan="4" rowspan="4" id="graphPreview" style="height: 120px;"></td>\
+  </tr><tr>\
+    <td colspan="2" style="vertical-align:bottom;"><label for="yid">Y label</td>\
+  </tr><tr>\
+    <td colspan="2" style="text-align:right; vertical-align:top;"><input id="yid" type="text" value="Y Axis" style="width: 75px;"/></td>\
+  </tr><tr>\
+    <td><label for="ymin">Y min</label></td>\
+    <td style="text-align:right;"><input id="ymin" type="text" value="0" style="width: 30px;"/></td>\
+  </tr><tr>\
+    <td></td>\
+    <td></td>\
+    <td style="width: 20px;"></td>\
+    <td><label for="xmin">X min</label><br/><input id="xmin" type="text" value="0" style="width: 30px;"/></td>\
+    <td style="text-align: center;"><label for="xid">X label</label><br /><input id="xid" type="text" value="X Axis" style="width: 75px;"/></td>\
+    <td style="text-align: right;"><label for="xmax">X max</label><br /><input id="xmax" type="text" value="10" style="width: 30px;"/></td>\
+  </tr>\
+</table>'),
 						inputs: [{
 							value: 'true',
-							label: 'include grid lines',
+							label: 'Include grid lines',
 							type: 'checkbox',
 							events: {
 								mouseup: function() {
