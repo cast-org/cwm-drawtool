@@ -59,26 +59,11 @@
 	</g>
 	<g id="cast_drawing_shapes">
 		<svg version="1.1" id="Drawing_Starters" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
-			 y="0px" width="40.917px" height="30px" viewBox="2.5 0 40.917 30" enable-background="new 2.5 0 40.917 30" xml:space="preserve">
-		<text transform="matrix(1 0 0 1 7.6968 27.7773)" font-family="'ArialMT'" font-size="9">Shapes</text>
-		<polygon fill="#231F20" points="36.506,18.256 33.25,14.468 39.667,14.468 "/>
-		<g>
-			<g>
-				<path fill="#404041" d="M11.687,4.227C10.153,4.7,8.899,5.741,8.151,7.156c-0.744,1.417-0.896,3.041-0.422,4.571
-					c0.475,1.532,1.513,2.786,2.928,3.532c1.418,0.75,3.043,0.899,4.57,0.427c1.534-0.474,2.788-1.513,3.536-2.929
-					c0.459-0.876,0.695-1.829,0.695-2.79c0-0.596-0.091-1.195-0.27-1.781c-0.477-1.532-1.514-2.786-2.931-3.532
-					C14.838,3.904,13.214,3.753,11.687,4.227z M11.088,14.446c-1.198-0.632-2.082-1.695-2.482-2.99
-					c-0.401-1.295-0.272-2.67,0.362-3.868c0.63-1.2,1.695-2.081,2.987-2.48c1.299-0.402,2.671-0.273,3.869,0.359
-					c1.198,0.633,2.081,1.695,2.481,2.988v0.001c0.401,1.295,0.272,2.669-0.36,3.868c-0.633,1.2-1.696,2.08-2.989,2.479
-					C13.66,15.206,12.287,15.078,11.088,14.446z M19.187,8.185L19.187,8.185L19.187,8.185z"/>
-			</g>
-			<rect x="3.208" y="2.253" fill="none" stroke="#808080" stroke-miterlimit="10" width="20.5" height="16"/>
-			<g>
-				
-					<image overflow="visible" width="17" height="17" id="yBByhD_1_" xlink:href="E48D205A.jpg"  transform="matrix(1 0 0 1 25.709 1.749)">
-				</image>
-			</g>
-		</g>
+			 y="0px" width="40px" height="30px" viewBox="0 0 40 30" enable-background="0 0 40 30" xml:space="preserve">
+		  <text transform="matrix(1 0 0 1 5 27.7773)" font-family="'ArialMT'" font-size="9">Shapes</text>
+          <rect height="18" width="26" y="1" x="1" stroke-width="1" stroke="#666666" fill="none"/>
+          <ellipse ry="6" rx="6" cy="10" cx="14" stroke-width="1" stroke="#000000" fill="none"/>
+          <path d="M30,10 l8,0 -4,4z" stroke-width="0" fill="#231F20"/>
 		</svg>
 	</g>
 	<g id="cast_drawing_graph_axis">
