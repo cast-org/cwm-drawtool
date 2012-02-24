@@ -425,14 +425,3 @@ li.last-tab.ui-tabs-selected div {
 	border:1px solid #FFFFFF;
 	padding:7px;
 }
-
-.cwmGraphAxis rect {
-	fill: ivory;
-	opacity: 0.8;
-	stroke: gray;
-}
-
-.cwmGraphAxis text {
-	font-size: .8em;
-}
-

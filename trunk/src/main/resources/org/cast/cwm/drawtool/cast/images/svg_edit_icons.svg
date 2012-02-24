@@ -21,9 +21,9 @@
 </g>
 
 <g id="rect">
-	<svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="30px" viewBox="0 0 40 30" enable-background="new 0 0 40 30" xml:space="preserve">
-		<text transform="matrix(1 0 0 1 -0.2632 27.7773)" font-family="'Arial'" font-size="9">Rectangle</text>
-		<g>
+	<svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="47px" height="30px" viewBox="0 0 47 30" enable-background="new 0 0 47 30" xml:space="preserve">
+		<text transform="matrix(1 0 0 1 3.25 27.7773)" font-family="'Arial'" font-size="9">Rectangle</text>
+		<g transform="translate(3.5,0)">
 			<linearGradient id="rect_grad" gradientUnits="userSpaceOnUse" x1="-649.1919" y1="-94.5371" x2="-649.1695" y2="-94.5055" gradientTransform="matrix(510 0 0 306 331104 28934.25)">
 				<stop  offset="0" style="stop-color:#FFFFFF"/>
 				<stop  offset="1" style="stop-color:#3B7E9B"/>
@@ -34,9 +34,9 @@
 </g>
 
 <g id="ellipse">
-	<svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="26px" height="30px" viewBox="0 0 26 30" enable-background="new 0 0 26 30" xml:space="preserve">
-		<text transform="matrix(1 0 0 1 -0.2563 27.7773)" font-family="'Arial'" font-size="9">Ellipse</text>
-		<g>
+	<svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="47px" height="30px" viewBox="0 0 47 30" enable-background="new 0 0 47 30" xml:space="preserve">
+		<text transform="matrix(1 0 0 1 10.25 27.7773)" font-family="'Arial'" font-size="9">Ellipse</text>
+		<g transform="translate(10.5,0)">
 			<linearGradient id="svg_1_1_" gradientUnits="userSpaceOnUse" x1="-656.2368" y1="-94.6709" x2="-656.2091" y2="-94.6437" gradientTransform="matrix(521.3333 0 0 340 342125 32194.25)">
 				<stop  offset="0" style="stop-color:#FFFFFF"/>
 				<stop  offset="1" style="stop-color:#FF6666"/>
@@ -47,11 +47,11 @@
 </g>
 
 <g id="pencil">
-	<svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="39.5px" height="30px" viewBox="0 0 39.5 30" enable-background="new 0 0 39.5 30" xml:space="preserve">
+	<svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="47px" height="30px" viewBox="0 0 47 30" enable-background="new 0 0 47 30" xml:space="preserve">
 	<g>
-		<text transform="matrix(1 0 0 1 -0.5039 27.8613)" fill="#333333" font-family="'Arial'" font-size="9">Freehand</text>
+		<text transform="matrix(1 0 0 1 3.25 27.8613)" fill="#333333" font-family="'Arial'" font-size="9">Freehand</text>
 	</g>
-	<g>
+	<g transform="translate(3.75,0)">
 		<linearGradient id="svg_2_2_" gradientUnits="userSpaceOnUse" x1="-285.6934" y1="410.9307" x2="-285.6851" y2="410.923" gradientTransform="matrix(296.4375 0 0 -564.1875 84710.9219 231847.1875)">
 			<stop  offset="0" style="stop-color:#F9D225"/>
 			<stop  offset="1" style="stop-color:#BF5F00"/>
@@ -65,11 +65,11 @@
 </g>
 
 <g id="pen">
-	<svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="19.667px" height="30px" viewBox="0 0 19.667 30" enable-background="new 0 0 19.667 30" xml:space="preserve">
-	<g>
+	<svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="47" height="30px" viewBox="0 0 47 30" enable-background="new 0 0 47 30" xml:space="preserve">
+	<g transform="translate(13,0)">
 		<text transform="matrix(1 0 0 1 0.6665 27.8613)" fill="#333333" font-family="'Arial'" font-size="9">Line</text>
 	</g>
-	<g>
+	<g transform="translate(13,0)">
 		<line id="svg_5" fill="none" stroke="#000000" stroke-width="0.75" x1="0.572" y1="1.93" x2="10.646" y2="18.457"/>
 		<path id="svg_6" fill="#A0A0A0" stroke="#000000" stroke-width="0.5" d="M11.55,12.188l-1.23,6.33l3.396-5.32"/>
 		<linearGradient id="svg_7_1_" gradientUnits="userSpaceOnUse" x1="-295.7598" y1="411.1846" x2="-295.7404" y2="411.1746" gradientTransform="matrix(152.308 0 0 -125.9578 45058.1758 51802.5703)">
