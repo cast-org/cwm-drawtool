@@ -226,7 +226,7 @@ function makeGraph(x, y, showGrid, suppressPopup) {
 	
     return $('<svg>\
         <g class="cwmGraphAxis" id="' + svgCanvas.getNextId() + '" value="Graph" locked="true">\
-			<rect x="' + x.pixel.min + '" y="' + y.pixel.min + '" width="' + (x.pixel.max - 50) + '" height="' + (y.pixel.max - 10) + '"/>\
+			<rect style="fill: ivory;opacity: 0.8;stroke: gray;" x="' + x.pixel.min + '" y="' + y.pixel.min + '" width="' + (x.pixel.max - 50) + '" height="' + (y.pixel.max - 10) + '"/>\
             ' + y.html.bg + x.html.bg + '\
             <g class="xGrid" stroke="black">' + x.html.bgZero + '</g>\
 			<g class="yGrid" stroke="black">' + y.html.bgZero + '</g>\
@@ -244,8 +244,8 @@ function makeGraph(x, y, showGrid, suppressPopup) {
             <g class="xAxisLabel" text-anchor="middle">\
                 ' + x.html.label + '\
             </g>\
-            <text x="0" y="' + (y.pixel.max / 2) + '">' + y.id + '</text>\
-            <text x="' + (x.pixel.max / 2) + '" y="' + (y.pixel.max + 30) + '">' + x.id + '</text>\
+            <text style="font-size: .8em;" x="0" y="' + (y.pixel.max / 2) + '">' + y.id + '</text>\
+            <text style="font-size: .8em;" x="' + (x.pixel.max / 2) + '" y="' + (y.pixel.max + 30) + '">' + x.id + '</text>\
         </g>\
     </svg>');
 }

@@ -11,26 +11,6 @@ if (typeof starterImageUrls == "undefined") {
 }
 
 $(function() {
-	//This is a hack into $.svgIcons because svg-edit doesn't allow for an override on icon width
-	var svgIcons = $.svgIcons;
-	$.svgIcons = function(path, conf) {
-		if (path.match('cast/images/cast_icons.svg')) {
-			conf.w = 70;
-			conf.h = 30;
-		} else if (path.match('cast/images/svg_edit_icons.svg')) {
-			conf.w = 34;
-			conf.h = 30;
-		} else if (path.match('svgedit/extensions/ext-shapes.xml')) {
-			conf.w = 24;
-			conf.h = 24;
-		} else {
-			conf.w = 44;
-			conf.h = 19;
-		}
-		
-		return svgIcons(path, conf);
-	};
-
 	//prevent ungrouping with double click
 	$('#svgcanvas').unbind('dblclick');
 	$(window)
@@ -423,13 +403,6 @@ svgEditor.addExtension("Cast Tabs", function() {
 				CastTabs.skipActivate = false;
 			}
 
-			/*
-			 * Required because svg-editor.js resizes the select tool
-			 * icon each time the selection changes.
-			 */
-			$.resizeSvgIcons({
-				"#tool_select .svg_icon": [25,30],
-			});			
 		},
 		
 		callback: function() {
@@ -527,15 +500,6 @@ svgEditor.ready(function() {
 	 */
 	
 	$.resizeSvgIcons({
-		
-			// Tools
-		 	"#tool_fhpath .svg_icon": [40,30],
-			"#tool_line .svg_icon": [34,30],
-			"#tool_ellipse .svg_icon": [34,30],
-			"#tool_rect .svg_icon": [34,30],
-			"#tool_path .svg_icon": [34,30],
-			"#tool_text .svg_icon": [34,30],
-			
 			// Tiny Context Buttons
 			"#tool_move_top .svg_icon": [12,12],
 			"#tool_move_bottom .svg_icon": [12,12],
