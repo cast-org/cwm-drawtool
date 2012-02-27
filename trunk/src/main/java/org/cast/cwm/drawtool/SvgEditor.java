@@ -14,6 +14,7 @@ import org.apache.wicket.markup.html.link.InlineFrame;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.cast.cwm.drawtool.extension.Extension;
 
@@ -38,7 +39,7 @@ public class SvgEditor extends WebPage implements IHeaderContributor {
 	
 	public static final String EXTENSION_MARKUP_ID = "extensionMarkup";
 	
-	private String svg;
+	private IModel<String> mSvg;
 	private List<String> drawingStarters;
 	
 	private List<Extension> extensions = new ArrayList<Extension>();
@@ -91,8 +92,8 @@ public class SvgEditor extends WebPage implements IHeaderContributor {
 		StringBuffer canvasInit = new StringBuffer();
 		
 		// Load initial SVG data
-		if (svg != null)
-			canvasInit.append("svgEditor.loadFromString('" + svg.replace('\n', ' ') + "');\n");
+		if (mSvg != null && mSvg.getObject() != null)
+			canvasInit.append("svgEditor.loadFromString('" + mSvg.getObject().replace('\n', ' ') + "');\n");
 		
 		response.renderJavascript(canvasInit, "Existing SVG Load");
 
@@ -131,12 +132,12 @@ public class SvgEditor extends WebPage implements IHeaderContributor {
 		this.drawingStarters = drawingStarters;
 	}
 
-	public String getSvg() {
-		return svg;
+	public IModel<String> getMSvg() {
+		return mSvg;
 	}
 
-	public void setSvg(String svg) {
-		this.svg = svg;
+	public void setMSvg(IModel<String> mSvg) {
+		this.mSvg = mSvg;
 	}
 	
 	public void addExtension(Extension ext) {
@@ -145,5 +146,12 @@ public class SvgEditor extends WebPage implements IHeaderContributor {
 	
 	public List<Extension> getExtensions() {
 		return extensions;
+	}
+
+	@Override
+	protected void onDetach() {
+		if (mSvg != null)
+			mSvg.detach();
+		super.onDetach();
 	}
 }
