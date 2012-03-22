@@ -60,6 +60,7 @@
 	<g id="cast_drawing_shapes">
 		<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
 			 y="0px" width="40px" height="30px" viewBox="0 0 40 30" enable-background="0 0 40 30" xml:space="preserve">
+		  <text transform="matrix(1 0 0 1 5 27.7773)" font-family="'ArialMT'" font-size="9">Shapes</text>
           <rect height="18" width="26" y="1" x="1" stroke-width="1" stroke="#666666" fill="none"/>
           <ellipse ry="6" rx="6" cy="10" cx="14" stroke-width="1" stroke="#000000" fill="none"/>
           <path d="M30,10 l8,0 -4,4z" stroke-width="0" fill="#231F20"/>
