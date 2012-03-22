@@ -15,6 +15,7 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.cast.cwm.drawtool.extension.Extension;
 
@@ -138,6 +139,18 @@ public class SvgEditor extends WebPage implements IHeaderContributor {
 
 	public void setMSvg(IModel<String> mSvg) {
 		this.mSvg = mSvg;
+	}
+	
+	@Deprecated
+	// TODO remove after next stable release
+	public String getSvg() {
+		return mSvg.getObject();
+	}
+
+	@Deprecated
+	// TODO remove after next stable release
+	public void setSvg(String svg) {
+		this.mSvg = Model.of(svg);
 	}
 	
 	public void addExtension(Extension ext) {
