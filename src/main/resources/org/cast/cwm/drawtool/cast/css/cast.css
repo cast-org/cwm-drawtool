@@ -244,7 +244,9 @@ li.last-tab.ui-tabs-selected div {
 	float:left;
 	clear:both;
 	margin-top:3px;
-	font-size:0.9em
+	font-size:0.9em;
+	width: 100%;
+	text-align: center;
 }
 
 #svg_editor .tool_sep {
