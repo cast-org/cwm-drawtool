@@ -500,26 +500,10 @@ svgEditor.ready(function() {
 	 */
 	
 	$.resizeSvgIcons({
-			// Tiny Context Buttons
-			"#tool_move_top .svg_icon": [12,12],
-			"#tool_move_bottom .svg_icon": [12,12],
-			"#tool_clone .svg_icon": [12,12],
-			"#tool_delete .svg_icon": [12,12],
-			"#tool_group .svg_icon": [12,12],
-			"#tool_ungroup .svg_icon": [12,12],
-			"#tool_alignleft .svg_icon": [12,12],
-			"#tool_aligncenter .svg_icon": [12,12],
-			"#tool_alignright .svg_icon": [12,12],
-			"#tool_aligntop .svg_icon": [12,12],
-			"#tool_alignmiddle .svg_icon": [12,12],
-			"#tool_alignbottom .svg_icon": [12,12],
-			"#tool_clone_multi .svg_icon": [12,12],
-			"#tool_delete_multi .svg_icon": [12,12],
-			
 			// Undo/Redo
 			"#tool_undo .svg_icon": [34,30],
-			"#tool_redo .svg_icon": [34,30],
-			
+			"#tool_redo .svg_icon": [34,30]
+
 	});
 	
 	/*
@@ -530,7 +514,7 @@ svgEditor.ready(function() {
 		.find('svg,rect')
 		.attr('width', 12)
 		.attr('height', 12);
-	
+
 	$("#stroke_color")
 		.find('svg,rect')
 		.attr('width', 12)

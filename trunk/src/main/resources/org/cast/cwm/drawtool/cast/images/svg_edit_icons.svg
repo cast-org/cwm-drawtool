@@ -272,7 +272,7 @@
    <stop stop-opacity="1" stop-color="#af995b" offset="1"/>
   </linearGradient>
  </defs>
-  <g transform="scale(1.4)">
+  <g transform="scale(0.5)">
   <path stroke="#8f5902" fill="url(#svg_69)" id="svg_34" d="m2.11676,16.32061l-0.13787,-5.05515l1.93015,-2.02206l10.11029,0l2.02206,2.29779l0,4.77941l-13.92463,0z"/>
   <rect x="7.85379" y="6.30027" width="2.2932" height="4.3407" id="svg_38" fill="url(#svg_36)" stroke="#8f5902" rx="1" ry="1"/>
   <circle stroke="#8f5902" fill="url(#svg_36)" id="svg_35" r="2.96392" cy="4.48149" cx="9.11757"/>
@@ -288,7 +288,7 @@
 			<stop  offset="0" style="stop-color:#10284C"/>
 			<stop  offset="1" style="stop-color:#5374AD"/>
 		</linearGradient>
-		<path transform="scale(2)" id="Delete" fill="url(#Delete_1_)" d="M9.654,1.581H7.043V0.833c0,0-0.011-0.333-0.344-0.333H5.275c-0.333,0-0.319,0.333-0.319,0.333v0.748h-2.61c-0.369,0-0.664,0.297-0.664,0.664v0.759h8.637V2.245C10.318,1.878,10.022,1.581,9.654,1.581z M2.346,10.836c0,0.367,0.297,0.664,0.664,0.664h5.98c0.367,0,0.664-0.297,0.664-0.664V3.668H2.346V10.836z M7.618,4.326h1.029v5.861c0,0.285-0.231,0.516-0.515,0.516c-0.286,0-0.515-0.23-0.515-0.516V4.326zM5.485,4.326h1.028v5.861c0,0.285-0.229,0.516-0.514,0.516c-0.286,0-0.515-0.23-0.515-0.516V4.326z M3.336,4.326h1.031v5.861c0,0.285-0.231,0.516-0.515,0.516c-0.284,0-0.517-0.23-0.517-0.516V4.326z"/>
+		<path transform="scale(0.7)" id="Delete" fill="url(#Delete_1_)" d="M9.654,1.581H7.043V0.833c0,0-0.011-0.333-0.344-0.333H5.275c-0.333,0-0.319,0.333-0.319,0.333v0.748h-2.61c-0.369,0-0.664,0.297-0.664,0.664v0.759h8.637V2.245C10.318,1.878,10.022,1.581,9.654,1.581z M2.346,10.836c0,0.367,0.297,0.664,0.664,0.664h5.98c0.367,0,0.664-0.297,0.664-0.664V3.668H2.346V10.836z M7.618,4.326h1.029v5.861c0,0.285-0.231,0.516-0.515,0.516c-0.286,0-0.515-0.23-0.515-0.516V4.326zM5.485,4.326h1.028v5.861c0,0.285-0.229,0.516-0.514,0.516c-0.286,0-0.515-0.23-0.515-0.516V4.326z M3.336,4.326h1.031v5.861c0,0.285-0.231,0.516-0.515,0.516c-0.284,0-0.517-0.23-0.517-0.516V4.326z"/>
 	</svg>
 </g>
 
@@ -318,7 +318,7 @@
 
 <g id="move_bottom">
 	<svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
-		<g>
+		<g transform="scale(0.35)">
 			<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="6" y1="6" x2="19" y2="19">
 				<stop  offset="0" style="stop-color:#FFFFFF"/>
 				<stop  offset="1" style="stop-color:#3B7E9B"/>
@@ -340,7 +340,7 @@
 
 <g id="move_top">
 	<svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
-		<g>
+		<g transform="scale(0.35)">
 			<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="1" y1="1" x2="9" y2="9">
 				<stop  offset="0" style="stop-color:#FFFFFF"/>
 				<stop  offset="1" style="stop-color:#C8C8C8"/>
