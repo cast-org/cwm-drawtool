@@ -227,6 +227,7 @@ svgEditor.addExtension("cwm-shapes", function() {
 				if (!canv.getMode().match('cwm-shapes')) {
 					$('#cast_drawing_shapes')
 						.removeClass('tool_button_current');
+					cast.html(makeIcon());
 				}
 			});
 			
@@ -244,16 +245,15 @@ svgEditor.addExtension("cwm-shapes", function() {
 				btn.addClass('tool_button_current');
 				
 				cast.attr('data-curopt', '#' + btn[0].id); // This sets the current mode
-				console.log(mode_id);
 				canv.setMode(mode_id);
 				
 				cur_shape_id = btn[0].id.substr((mode_id+'_').length);
 				current_d = cur_lib.data[cur_shape_id];
 				
-				//cast.html(makeIcon(current_d));
+				cast.html(makeIcon(current_d));
 			});
 			
-			//cast.html(makeIcon());
+			cast.html(makeIcon());
 		},
 		mouseDown: function(opts) {
 			var mode = canv.getMode();
