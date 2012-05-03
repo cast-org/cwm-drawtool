@@ -272,6 +272,11 @@ li.last-tab.ui-tabs-selected div {
 	width:250px;
 }
 
+#tool_select
+{
+	display: inline-block;
+	float: left;
+}
 
 #svg_editor #stroke_style_label {
 	float:left;

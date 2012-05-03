@@ -164,7 +164,7 @@ svgEditor.addExtension("cwm-shapes", function() {
 	var lock = false;
 	
 	return {
-		svgicons: "svgedit/extensions/ext-shapes.xml",
+		svgicons: "cast/images/cast_icons.svg",
 		buttons: [{
 			id: "cast_drawing_shapes",
 			type: "context",
@@ -204,7 +204,7 @@ svgEditor.addExtension("cwm-shapes", function() {
 					display:none;\
 				}')
 				.appendTo('head');
-			
+
 			loadLibrary('basic');
 			
 			var cast = $('#cast_drawing_shapes');
@@ -227,7 +227,7 @@ svgEditor.addExtension("cwm-shapes", function() {
 				if (!canv.getMode().match('cwm-shapes')) {
 					$('#cast_drawing_shapes')
 						.removeClass('tool_button_current');
-					cast.html(makeIcon());
+					//cast.html(makeIcon());
 				}
 			});
 			
@@ -250,10 +250,10 @@ svgEditor.addExtension("cwm-shapes", function() {
 				cur_shape_id = btn[0].id.substr((mode_id+'_').length);
 				current_d = cur_lib.data[cur_shape_id];
 				
-				cast.html(makeIcon(current_d));
+				//cast.html(makeIcon(current_d));
 			});
 			
-			cast.html(makeIcon());
+			//cast.html(makeIcon());
 		},
 		mouseDown: function(opts) {
 			var mode = canv.getMode();
