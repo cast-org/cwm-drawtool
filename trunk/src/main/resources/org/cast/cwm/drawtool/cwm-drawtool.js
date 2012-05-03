@@ -26,6 +26,31 @@ $(function() {
 					.css('position', '');
 			}
 		});
+
+	//prevent svgeditor from changing fill on selecting text
+	var canv = $('#svgcanvas')
+		.mousedown(function(){
+			var fill = $('#fill_color rect').attr('fill') + '';
+
+			if (fill) {
+				canv.data('fill', fill.replace('#', '').toLowerCase())
+			}
+
+			console.log(canv.data('fill'));
+		})
+		.mouseup(function(){
+			setTimeout(function() {
+				var paint = new $.jGraduate.Paint({
+					alpha: 100,
+					type: "solidColor",
+					solidColor: canv.data('fill')
+				});
+
+				$('#fill_color rect').attr('fill', '#' + canv.data('fill'));
+				console.log(canv.data('fill'));
+				svgCanvas.setPaint('fill', paint);
+			},1);
+		});
 });
 /**
  * Callback controls for the tabs
