@@ -35,8 +35,6 @@ $(function() {
 			if (fill) {
 				canv.data('fill', fill.replace('#', '').toLowerCase())
 			}
-
-			console.log(canv.data('fill'));
 		})
 		.mouseup(function(){
 			setTimeout(function() {
@@ -47,7 +45,7 @@ $(function() {
 				});
 
 				$('#fill_color rect').attr('fill', '#' + canv.data('fill'));
-				console.log(canv.data('fill'));
+
 				svgCanvas.setPaint('fill', paint);
 			},1);
 		});
