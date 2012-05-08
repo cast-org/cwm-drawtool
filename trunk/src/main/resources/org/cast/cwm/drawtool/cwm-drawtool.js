@@ -27,28 +27,6 @@ $(function() {
 			}
 		});
 
-	//prevent svgeditor from changing fill on selecting text
-	var canv = $('#svgcanvas')
-		.mousedown(function(){
-			var fill = $('#fill_color rect').attr('fill');
-
-			if (fill) {
-				canv.data('fill', fill)
-			}
-		})
-		.mouseup(function(){
-			if (canv.data('fill') != $('#fill_color rect').attr('fill')) {
-				var paint = new $.jGraduate.Paint({
-					alpha: 100,
-					type: "solidColor",
-					solidColor: (canv.data('fill') + '').replace('#', '').toLowerCase()
-				});
-
-				$('#fill_color rect').attr('fill', canv.data('fill'));
-
-				svgCanvas.setPaint('fill', paint);
-			}
-		});
 });
 /**
  * Callback controls for the tabs
