@@ -1,12 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	
 	<groupId>org.cast.cwm</groupId>
 	<artifactId>cwm-drawtool</artifactId>
-	<version>1.2-SNAPSHOT</version>
 	<name>CWM Draw Tool</name>
-	<description>A drawing tool based on svg-edit</description>
-    <url>http://code.google.com/p/cwm-drawtool</url>
+	<version>1.2-SNAPSHOT</version>
 
+    <url>http://code.google.com/p/cwm-drawtool</url>
+	<description>A drawing tool based on svg-edit</description>
+	<inceptionYear>2011</inceptionYear>
+	
     <organization>
         <name>CAST, Inc.</name>
         <url>http://cast.org</url>
@@ -14,8 +17,8 @@
 
     <licenses>
         <license>
-            <name>Apache 2</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <name>MIT</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -33,8 +36,7 @@
 
     <distributionManagement>
         <repository>
-            <id>xander</id>
-            <name>Xander Maven2 repository</name>
+            <id>CAST</id>
             <url>scpexe://xander.cast.org/shared/maven2-repository</url>
         </repository>
     </distributionManagement>
@@ -95,6 +97,35 @@
 					<target>1.5</target>
 				</configuration>
 			</plugin>
+            <plugin>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <version>1.9.0</version>
+                <configuration>
+                    <header>etc/header.txt</header>
+                    <strictCheck>true</strictCheck>
+                    <aggregate>true</aggregate>
+                    <includes>
+                        <include>src/**/*.java</include>
+                        <include>src/**/*.js</include>
+                    </includes>
+                    <excludes>
+                    	<exclude>src/main/resources/org/cast/cwm/drawtool/svgedit/**</exclude>
+                    	<exclude>src/main/resources/org/cast/cwm/drawtool/plugin/**</exclude>
+                    	<exclude>src/main/resources/org/cast/cwm/drawtool/cast/**</exclude>
+                    </excludes>
+                    <properties>
+                        <year>${project.inceptionYear}-${copyright.year}</year>
+                    </properties>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 		</plugins>
         <extensions>
             <extension>
@@ -106,6 +137,7 @@
 	</build>
 
     <properties>
+      <copyright.year>2012</copyright.year>
       <wicket.version>1.4.18</wicket.version>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <project.test.sourceEncoding>UTF-8</project.test.sourceEncoding>
