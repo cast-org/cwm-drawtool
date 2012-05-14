@@ -19,6 +19,7 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
  * THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 function makeGraph(x, y, showGrid, suppressPopup) {
 	//this is required for some odd reason when using a <g /> element in svgedit
 	$('#g_title').remove();
@@ -173,7 +174,6 @@ function makeGraph(x, y, showGrid, suppressPopup) {
 				}
 			}
 		});
-		console.log(o);
 		
 		var labelTotal = o.max - o.min;
 		var pixelTotal = o.pixel.max - o.pixel.min;

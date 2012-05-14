@@ -19,6 +19,7 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
  * THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 svgEditor.addExtension("cwm-shapes", function() {
 	var current_d, cur_shape_id;
 	var canv = svgEditor.canvas;
@@ -185,7 +186,7 @@ svgEditor.addExtension("cwm-shapes", function() {
 	var lock = false;
 	
 	return {
-		svgicons: "cast/images/cast_icons.svg",
+		svgicons: serverImagePath + "cast/images/cast_icons.svg",
 		buttons: [{
 			id: "cast_drawing_shapes",
 			type: "context",
