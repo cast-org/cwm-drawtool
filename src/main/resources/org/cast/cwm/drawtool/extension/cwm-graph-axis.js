@@ -357,7 +357,7 @@ $('<table style="width:100%; border-collapse:collapse; border:none; overflow:vis
 								me.remove();
 							}
 						},
-						width: 350
+						width: 410
 					});
 					
 					$('.cwmDialog input:checkbox').addClass('gridLines');
