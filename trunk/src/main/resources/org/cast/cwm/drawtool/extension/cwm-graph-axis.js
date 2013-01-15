@@ -247,7 +247,7 @@ function makeGraph(x, y, showGrid, suppressPopup) {
 	
     return $('<svg>\
         <g class="cwmGraphAxis" id="' + svgCanvas.getNextId() + '" value="Graph" locked="true">\
-			<rect style="fill: ivory;opacity: 0.8;stroke: gray;" x="' + x.pixel.min + '" y="' + y.pixel.min + '" width="' + (x.pixel.max - 50) + '" height="' + (y.pixel.max - 10) + '"/>\
+			<rect fill="ivory" stroke="gray" opacity="0.8" x="' + x.pixel.min + '" y="' + y.pixel.min + '" width="' + (x.pixel.max - 50) + '" height="' + (y.pixel.max - 10) + '"/>\
             ' + y.html.bg + x.html.bg + '\
             <g class="xGrid" stroke="black">' + x.html.bgZero + '</g>\
 			<g class="yGrid" stroke="black">' + y.html.bgZero + '</g>\
