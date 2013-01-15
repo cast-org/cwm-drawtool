@@ -1,5 +1,5 @@
 /**
- * Copyright 2011-2012 CAST, Inc.
+ * Copyright 2011-2013 CAST, Inc.
  *
  * This file is part of the CAST extension of SVG Edit;
  * see http://code.google.com/p/cwm-drawtool for more information.

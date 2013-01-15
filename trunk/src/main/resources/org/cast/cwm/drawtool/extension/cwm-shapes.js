@@ -1,5 +1,5 @@
 /*
- * Copyright 2011-2012 CAST, Inc.
+ * Copyright 2011-2013 CAST, Inc.
  *
  * This file is part of the CAST extension of SVG Edit;
  * see http://code.google.com/p/cwm-drawtool for more information.
@@ -19,7 +19,6 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
  * THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
 svgEditor.addExtension("cwm-shapes", function() {
 	var current_d, cur_shape_id;
 	var canv = svgEditor.canvas;
