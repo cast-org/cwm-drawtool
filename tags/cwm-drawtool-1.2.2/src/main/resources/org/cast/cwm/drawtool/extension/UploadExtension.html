@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+	<wicket:panel>
+		<div id="upload_dialog" class="dialog">
+			<div class="overlay"></div>
+ 			<div class="dialog_container">
+		    	<div class="dialog_content prompt"><p>Upload File Extension</p></div>
+		    	<div class="dialog_buttons">
+		    		<form wicket:id="form">
+		    			<input wicket:id="file" type="file" />
+						<input wicket:id="submit" type="submit" />
+						<input type="button" id="upload_cancel_button" />
+					</form>
+		    	</div>
+		  	</div>
+		</div>
+	</wicket:panel>
+</body>
+</html>

@@ -1,0 +1,435 @@
+/***********************************
+ * Modifications to svg-editor.css *
+ ***********************************/
+
+/* Custom Coloring */
+body { 
+	background: #F0F0F0;
+	padding: 0px;
+	margin: 0px;
+}
+
+#svg_editor #sidepanel_handle {
+	background-color: #E8E8E8;
+}
+
+/* Compensate for missing toolbars */
+#svg_editor div#workarea {
+	left: 0px;
+	bottom: 0px;
+}
+
+#svg_editor #sidepanels {
+	bottom: 0px;
+}
+
+/* Toolbar customizations */
+#svg_editor #tool_bold,
+#svg_editor #tool_italic {
+	line-height: 14px;
+	font-size: 1.5em;
+	top:1px;
+    min-width: 12px;
+}
+
+#svg_editor #fill_color,
+#svg_editor #stroke_color {
+	float:left;
+	height: 12px;
+	width: 12px;
+	padding: 1px;
+	margin-top: 3px;
+	margin-left:auto;
+}
+
+#svg_editor #tools_top {
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	height: 72px;
+	overflow: visible;
+	background:url(../images/top_panelbg.png) repeat-x;
+	position: absolute ! important;
+	z-index: 1;
+}
+
+#svg_editor #tools_top > div {
+	line-height:normal;
+}
+
+#font_family {
+	margin-left:auto;
+}
+
+.dropdown {
+	float:left;
+}
+
+#option_lists li {
+	font-size:1.4em;
+}
+
+#option_lists ul {
+	margin-top: -5px; 
+	margin-left: -10px;
+}
+
+#stroke_fill {
+	float:left;
+}
+
+#stroke_width {
+	margin-left:3px;
+}
+
+#stroke_fill input {
+	width: 25px;
+}
+
+#svg_editor .dropdown button {
+	height: 17px;
+	width: 17px;
+	margin: 2px 0px 0px 2px;
+}
+
+#tools_top input {
+	float:left;
+	height:10px;
+	width:35px;
+	font-size:9px;
+	margin-top:3px;
+	border: 1px solid #808080;
+	padding:2px;
+}
+
+#tools_top #image_url {
+	width:150px;
+}
+
+#svg_editor .tool_button,
+#svg_editor .push_button,
+#svg_editor .tool_button_current,
+#svg_editor .tool_button_disabled,
+#svg_editor .push_button_pressed {
+	height: 30px;
+	float:left;
+	width:auto;
+	min-width: 22px;
+	background-color:transparent !important;
+	border:1px solid transparent !important;
+	-moz-border-radius:3px !important;
+}
+
+#cast_tab_zoom {
+	line-height:normal;
+	border:1px solid transparent;
+	-moz-border-radius:3px;
+}
+
+#svg_editor .tool_button:hover,
+#svg_editor .push_button:hover,
+#svg_editor .tool_button_current,
+#svg_editor .push_button_pressed {
+	background-color:#D7D7D7 !important;
+	border-color:#D7D7D7 !important;
+}
+
+#svg_editor .small_button {
+	height: 12px;
+	width:12px;
+	background-color:#FFFFFF;
+	border: 1px solid #808080;
+	line-height:0px;
+	margin-left:1px;
+	padding:1px;
+	
+}
+
+/**************************************
+ * Style additions for CAST Interface *
+ **************************************/
+
+/*
+ * Tabs (jQuery UI)
+ */
+.ui-tabs {
+	margin-left:0px;
+	padding:0;
+	position: absolute; /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+	zoom: 1;
+	width:100%;
+} 
+.ui-tabs .ui-tabs-nav {
+	margin: 0;
+	padding:0;
+}
+.ui-tabs .ui-tabs-nav li {
+	border-bottom: 0 !important;
+	border-right:1px solid #aaa;
+	float: left;
+	list-style: none;
+	padding: 0;
+	position: relative;
+	top: 0px;
+	white-space: nowrap;
+}
+.ui-tabs .ui-tabs-nav li a {
+	display:block;
+	float: left;
+	height:30px;
+	padding:0;
+	text-decoration: none;
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected {
+	margin-bottom: 0;
+	padding-bottom: 0px;
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-selected a,
+.ui-tabs .ui-tabs-nav li.ui-state-disabled a,
+.ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: default; }
+
+.ui-tabs .ui-tabs-nav li a,
+.ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; } /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+
+.ui-tabs .ui-tabs-panel {
+	background: none;
+	border-width: 0;
+	display: block;
+	padding: 0;
+}
+.ui-tabs .ui-tabs-hide { display: none !important; }
+#tabs > ul { margin-bottom:32px; }
+li.ui-tabs-selected a#top_starters,
+li.ui-tabs-selected a#top_draw,
+li.ui-tabs-selected a#top_type,
+li.ui-tabs-selected a#top_edit { background-position: 0 -30px; }
+.ui-tabs-nav li a:focus { outline: 0; }
+
+.ui-tabs .ui-tabs-nav li.last-tab {
+	border-right:none;
+	float:right;
+	right:115px;
+	top:4px;
+}
+
+#top_zoom {
+	height: 24px;
+	width: 52px;
+	overflow:hidden;
+	-moz-border-radius:3px !important;
+	border-radius: 3px;
+}
+
+li.last-tab.ui-state-hover div,
+li.last-tab.ui-tabs-selected div {
+	background-color:#D7D7D7;
+	border-color:#D7D7D7;
+}
+
+#buttons_starters,
+#buttons_draw,
+#buttons_type,
+#buttons_edit,
+#buttons_zoom {clear:both;}
+
+/**
+ * Provide labels for toolbar groups
+ */
+.tool_group {
+	float:left;
+	margin-left:4px;
+	line-height:normal;
+}
+
+.tool_group .tool_label {
+	float:left;
+	clear:both;
+	margin-top:3px;
+	font-size:0.9em;
+	width: 100%;
+	text-align: center;
+}
+
+#svg_editor .tool_sep {
+	float:left;
+	width:auto;
+	border-left: 1px dashed #808080;
+	height:35px;
+	background:none;
+}
+
+
+#zoom { margin-left:10px; }
+
+#selected_panel { margin-top:30px; }
+
+#tool_tips {
+	background: url('../images/tip.png') left 5px no-repeat;
+	padding-left:20px;
+	position:absolute;
+	top:25px;
+	right:40px;
+	width:250px;
+}
+
+#tool_select
+{
+	display: inline-block;
+	float: left;
+}
+
+#svg_editor #stroke_style_label {
+	float:left;
+	height:10px;
+	width:20px;
+	margin: 3px 0px 0px 3px;
+	border: 1px solid #808080;
+	padding:2px;
+	background: #FFFFFF;
+	line-height:10px;
+	text-align:center;
+	font-size:1.1em;
+}
+
+#history_panel {
+	position:absolute;
+	right:0px;
+	top:0px;
+	border-left: 1px dashed #FFFFFF;
+	padding-left:8px;
+	overflow: hidden ! important;
+	height: 30px;
+}
+
+#history_panel .push_button,
+#history_panel .push_button_pressed {
+	line-height:normal;
+	background:none;
+	border:none !important;
+	height:26px;
+	margin:2px 8px 0px 0px;
+	padding:1px;
+	cursor: pointer;
+}
+
+#history_panel .push_button:hover {
+	border:none !important;
+	line-height:normal;
+}
+
+#text_panel #font_family {
+	width:70px;
+}
+
+/*************************************************************
+ * Dialogs (Common) 
+ * 
+ * Many copied from svg-editor.css and converted to classes 
+ * 
+ *************************************************************/
+
+.dialog {
+	display:none;
+}
+
+.overlay {
+	background: black;
+	opacity: .5;
+	height:100%;
+	left:0;
+	position:absolute;
+	top:0;
+	width:100%;
+	z-index: 6;
+}
+
+.dialog_container {
+	position: absolute;
+	font-family: Verdana;
+	text-align: center;
+	left: 50%;
+	top: 50%;
+	width: 300px;
+	margin-left: -150px;
+	min-height: 150px;
+	margin-top: -80px;
+	position:fixed;
+	z-index:50001;
+	background: #CCC;
+	border: 1px outset #777;
+	font-family:Verdana,Helvetica,sans-serif;
+	font-size:0.8em;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.dialog_content {
+	height: 95px;
+	margin: 10px 10px 5px 10px;
+	background: #DDD;
+	overflow: auto;
+	text-align: left;
+	border: 1px solid #B0B0B0;
+}
+
+.dialog_content.prompt {
+	height: 75px;
+}
+
+
+.dialog_content p {
+	margin: 10px;
+	line-height: 1.3em;
+}
+
+
+.dialog_buttons input[type="file"] {
+    display: block;
+    margin: 0 auto 5px;
+}
+
+.dialog_container, .dialog_content {
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.dialog_buttons input[type=button] {
+	margin: 0 1em;
+}
+
+
+/***************************
+ * Drawing Starters Dialog *
+ ***************************/
+
+#drawing_starters_dialog .dialog_content {
+	height:auto;
+}
+
+#drawing_starters_dialog .dialog_container {
+	top: 150px;
+	left: 225px;
+	width: 400px;
+	height: 250px;
+}
+
+.starterThumbnails {
+	height:160px;
+	overflow-y: auto;
+	bottom:0px;
+}
+
+.starterThumbnails img.thumbnail {
+	max-width:85px;
+	max-height:85px;
+	margin:5px;
+	padding:8px;
+	cursor:pointer;
+}
+
+.starterThumbnails img.thumbnail:hover {
+	background:#E9E9E9;
+	border:1px solid #FFFFFF;
+	padding:7px;
+}
