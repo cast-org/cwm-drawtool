@@ -4,7 +4,7 @@
 	<groupId>org.cast.cwm</groupId>
 	<artifactId>cwm-drawtool</artifactId>
 	<name>CWM Draw Tool</name>
-	<version>1.2.2</version>
+	<version>1.3-SNAPSHOT</version>
 
     <url>http://code.google.com/p/cwm-drawtool</url>
 	<description>A drawing tool based on svg-edit</description>
@@ -29,9 +29,9 @@
     </issueManagement>
 
     <scm>
-        <url>http://code.google.com/p/cwm-drawtool/source/tags/cwm-drawtool-1.2.2</url>
-        <connection>scm:svn:http://cwm-drawtool.googlecode.com/svn/tags/cwm-drawtool-1.2.2</connection>
-        <developerConnection>scm:svn:https://cwm-drawtool.googlecode.com/svn/tags/cwm-drawtool-1.2.2</developerConnection>
+        <url>http://code.google.com/p/cwm-drawtool/source</url>
+        <connection>scm:svn:http://cwm-drawtool.googlecode.com/svn/trunk</connection>
+        <developerConnection>scm:svn:https://cwm-drawtool.googlecode.com/svn/trunk</developerConnection>
     </scm>
 
     <distributionManagement>
