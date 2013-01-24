@@ -23,10 +23,10 @@ package org.cast.cwm.drawtool.extension;
 
 import java.io.Serializable;
 
-import org.apache.wicket.ResourceReference;
+import org.apache.wicket.request.resource.PackageResourceReference;
 
 public interface Extension extends Serializable {
 	
-	public ResourceReference getJavascriptResource();
+	public PackageResourceReference getJavascriptResource();
 
 }
