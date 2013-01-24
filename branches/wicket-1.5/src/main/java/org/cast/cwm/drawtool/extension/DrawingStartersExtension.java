@@ -21,8 +21,8 @@
  */
 package org.cast.cwm.drawtool.extension;
 
-import org.apache.wicket.ResourceReference;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.request.resource.PackageResourceReference;
 
 
 /**
@@ -39,7 +39,7 @@ public class DrawingStartersExtension extends Panel implements Extension {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ResourceReference getJavascriptResource() {
+	public PackageResourceReference getJavascriptResource() {
 		// TODO Auto-generated method stub
 		return null;
 	}
