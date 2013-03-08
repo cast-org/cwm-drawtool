@@ -92,7 +92,7 @@ public class SvgEditor extends WebPage implements IHeaderContributor {
 		
 		// Server Image Path
 		// TODO: Don't make this hard-coded
-		add(new Label("serverImagePath", "\nserverImagePath = 'resources/org.cast.cwm.drawtool.SvgEditor/';\n").setEscapeModelStrings(false));
+		add(new Label("serverImagePath", "\nserverImagePath = 'resource/org.cast.cwm.drawtool.SvgEditor/';\n").setEscapeModelStrings(false));
 		
 		add(new ListView<Extension>("extensionList", new PropertyModel<List<Extension>>(this, "extensions")) {
 
