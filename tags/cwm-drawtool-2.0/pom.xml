@@ -1,0 +1,147 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>org.cast.cwm</groupId>
+	<artifactId>cwm-drawtool</artifactId>
+	<name>CWM Draw Tool</name>
+	<version>2.0</version>
+
+    <url>http://code.google.com/p/cwm-drawtool</url>
+	<description>A drawing tool based on svg-edit</description>
+	<inceptionYear>2011</inceptionYear>
+	
+    <organization>
+        <name>CAST, Inc.</name>
+        <url>http://cast.org</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <issueManagement>
+        <system>Google Code</system>
+        <url>http://code.google.com/p/cwm-drawtool/issues</url>
+    </issueManagement>
+
+    <scm>
+        <url>http://code.google.com/p/cwm-drawtool/source/tags/cwm-drawtool-2.0</url>
+        <connection>scm:svn:http://cwm-drawtool.googlecode.com/svn/tags/cwm-drawtool-2.0</connection>
+        <developerConnection>scm:svn:https://cwm-drawtool.googlecode.com/svn/tags/cwm-drawtool-2.0</developerConnection>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>CAST</id>
+            <url>scpexe://xander.cast.org/shared/maven2-repository</url>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+    	<repository>
+    		<id>cast</id>
+    		<name>CAST</name>
+    		<url>http://comp.cast.org/maven2/</url>
+    	</repository>
+    </repositories>
+
+    <dependencies>
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket</artifactId>
+			<version>${wicket.version}</version>
+			<type>pom</type>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<filtering>false</filtering>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<filtering>false</filtering>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**</include>
+				</includes>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<filtering>false</filtering>
+				<directory>src/test/java</directory>
+				<includes>
+					<include>**</include>
+				</includes>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</testResource>
+		</testResources>
+		<plugins>
+			<plugin>
+				<inherited>true</inherited>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+            <plugin>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <version>1.9.0</version>
+                <configuration>
+                    <header>etc/header.txt</header>
+                    <strictCheck>true</strictCheck>
+                    <aggregate>true</aggregate>
+                    <includes>
+                        <include>src/**/*.java</include>
+                        <include>src/**/*.js</include>
+                    </includes>
+                    <excludes>
+                    	<exclude>src/main/resources/org/cast/cwm/drawtool/svgedit/**</exclude>
+                    	<exclude>src/main/resources/org/cast/cwm/drawtool/plugin/**</exclude>
+                    	<exclude>src/main/resources/org/cast/cwm/drawtool/cast/**</exclude>
+                    </excludes>
+                    <properties>
+                        <year>${project.inceptionYear}-${copyright.year}</year>
+                    </properties>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+		</plugins>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh-external</artifactId>
+                <version>1.0</version>
+            </extension>
+        </extensions> 
+	</build>
+
+    <properties>
+      <copyright.year>2013</copyright.year>
+      <wicket.version>1.5.8</wicket.version>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <project.test.sourceEncoding>UTF-8</project.test.sourceEncoding>
+    </properties>
+
+</project>
