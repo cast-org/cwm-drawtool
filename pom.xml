@@ -4,7 +4,7 @@
 	<groupId>org.cast.cwm</groupId>
 	<artifactId>cwm-drawtool</artifactId>
 	<name>CWM Draw Tool</name>
-	<version>2.1-SNAPSHOT</version>
+	<version>3.0-SNAPSHOT</version>
 
     <url>http://code.google.com/p/cwm-drawtool</url>
 	<description>A drawing tool based on svg-edit</description>

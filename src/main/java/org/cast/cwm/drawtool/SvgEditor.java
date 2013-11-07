@@ -110,6 +110,7 @@ public class SvgEditor extends WebPage implements IHeaderContributor {
 	}
 	
 	
+	@Override
 	public void renderHead(IHeaderResponse response) {
 		
 		StringBuffer canvasInit = new StringBuffer();
