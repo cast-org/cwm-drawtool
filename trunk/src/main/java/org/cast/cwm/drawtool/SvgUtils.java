@@ -19,29 +19,20 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
  * THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.cast.cwm.drawtool.extension;
+package org.cast.cwm.drawtool;
 
-import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.request.resource.PackageResourceReference;
+public class SvgUtils {
 
-
-/**
- * TODO: Make this.
- * @author jbrookover
- *
- */
-public class DrawingStartersExtension extends Panel implements Extension {
-
-	private static final long serialVersionUID = 1L;
-
-	public DrawingStartersExtension(String id) {
-		super(id);
-		// TODO Auto-generated constructor stub
+	public static String blankSvgImage(int width, int height) {
+		return "<svg width=\"" + width 
+				+ "\" height=\"" + height
+				+ "\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">"
+				+ "<g display=\"inline\"><title>Layer 1</title></g>"
+				+ "</svg>";
 	}
-
-	public PackageResourceReference getJavascriptResource() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public static String blankSvgImage() {
+		return blankSvgImage(SvgEditor.CANVAS_WIDTH, SvgEditor.CANVAS_HEIGHT);
 	}
-
+	
 }
