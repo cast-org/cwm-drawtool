@@ -24,16 +24,15 @@ package org.cast.cwm.drawtool;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.wicket.PageMap;
-import org.apache.wicket.behavior.SimpleAttributeModifier;
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.IHeaderResponse;
-import org.apache.wicket.markup.html.WebMarkupContainerWithAssociatedMarkup;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.InlineFrame;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -66,8 +65,10 @@ public class SvgEditor extends WebPage implements IHeaderContributor {
 	
 	private List<Extension> extensions = new ArrayList<Extension>();
 	
+	private static final long serialVersionUID = 1L;
+	
 	public SvgEditor() {
-		super(PageMap.forName("SvgFrame"));
+		super();
 		
 		// Drawing Starters
 		add(new Label("drawingStarters", new AbstractReadOnlyModel<String>() {
@@ -91,7 +92,7 @@ public class SvgEditor extends WebPage implements IHeaderContributor {
 		
 		// Server Image Path
 		// TODO: Don't make this hard-coded
-		add(new Label("serverImagePath", "\nserverImagePath = 'resources/org.cast.cwm.drawtool.SvgEditor/';\n").setEscapeModelStrings(false));
+		add(new Label("serverImagePath", "\nserverImagePath = 'resource/org.cast.cwm.drawtool.SvgEditor/';\n").setEscapeModelStrings(false));
 		
 		add(new ListView<Extension>("extensionList", new PropertyModel<List<Extension>>(this, "extensions")) {
 
@@ -99,8 +100,8 @@ public class SvgEditor extends WebPage implements IHeaderContributor {
 
 			@Override
 			protected void populateItem(ListItem<Extension> item) {
-				if (item.getModelObject() instanceof WebMarkupContainerWithAssociatedMarkup)
-					item.add((WebMarkupContainerWithAssociatedMarkup) item.getModelObject());
+				if (item.getModelObject() instanceof Panel)
+					item.add((Panel) item.getModelObject());
 				else
 					item.setVisible(false);
 				item.setRenderBodyOnly(true);
@@ -117,12 +118,12 @@ public class SvgEditor extends WebPage implements IHeaderContributor {
 		if (mSvg != null && mSvg.getObject() != null)
 			canvasInit.append("svgEditor.loadFromString('" + mSvg.getObject().replace('\n', ' ') + "');\n");
 		
-		response.renderJavascript(canvasInit, "Existing SVG Load");
+		response.renderJavaScript(canvasInit, "Existing SVG Load");
 
 		// Store canvas in "document" so it is accessible from parent page via W3C standards		
-		response.renderOnLoadJavascript("document.svgCanvas = window.svgCanvas;"); 
+		response.renderOnLoadJavaScript("document.svgCanvas = window.svgCanvas;"); 
 		for (Extension ext : extensions)
-			response.renderJavascriptReference(ext.getJavascriptResource());
+			response.renderJavaScriptReference(ext.getJavascriptResource());
 	}
 	
 	/**
@@ -134,10 +135,10 @@ public class SvgEditor extends WebPage implements IHeaderContributor {
 	 */
 	public InlineFrame getEditor(String id) {
 		InlineFrame frame = new InlineFrame(id, this);
-		frame.add(new SimpleAttributeModifier("style", "background:#FFFFFF;border:2px solid #AAAAAA"));
-		frame.add(new SimpleAttributeModifier("width", String.valueOf(EDITOR_WIDTH)));
-		frame.add(new SimpleAttributeModifier("height", String.valueOf(EDITOR_HEIGHT)));
-		frame.add(new SimpleAttributeModifier("scrolling", "no"));
+		frame.add(AttributeModifier.replace("style", "background:#FFFFFF;border:2px solid #AAAAAA"));
+		frame.add(AttributeModifier.replace("width", String.valueOf(EDITOR_WIDTH)));
+		frame.add(AttributeModifier.replace("height", String.valueOf(EDITOR_HEIGHT)));
+		frame.add(AttributeModifier.replace("scrolling", "no"));
 		frame.setOutputMarkupId(true);
 		return frame;
 	}
