@@ -25,8 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnLoadHeaderItem;
 import org.apache.wicket.markup.html.IHeaderContributor;
-import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.InlineFrame;
@@ -119,12 +121,12 @@ public class SvgEditor extends WebPage implements IHeaderContributor {
 		if (mSvg != null && mSvg.getObject() != null)
 			canvasInit.append("svgEditor.loadFromString('" + mSvg.getObject().replace('\n', ' ') + "');\n");
 		
-		response.renderJavaScript(canvasInit, "Existing SVG Load");
+		response.render(JavaScriptHeaderItem.forScript(canvasInit, "Existing SVG Load"));
 
 		// Store canvas in "document" so it is accessible from parent page via W3C standards		
-		response.renderOnLoadJavaScript("document.svgCanvas = window.svgCanvas;"); 
+		response.render(OnLoadHeaderItem.forScript("document.svgCanvas = window.svgCanvas;")); 
 		for (Extension ext : extensions)
-			response.renderJavaScriptReference(ext.getJavascriptResource());
+			response.render(JavaScriptHeaderItem.forReference(ext.getJavascriptResource()));
 	}
 	
 	/**
