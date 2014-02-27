@@ -137,8 +137,8 @@
 	</build>
 
     <properties>
-      <copyright.year>2013</copyright.year>
-      <wicket.version>6.12.0</wicket.version>
+      <copyright.year>2014</copyright.year>
+      <wicket.version>6.14.0</wicket.version>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <project.test.sourceEncoding>UTF-8</project.test.sourceEncoding>
     </properties>
