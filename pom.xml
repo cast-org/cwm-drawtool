@@ -4,7 +4,7 @@
 	<groupId>org.cast.cwm</groupId>
 	<artifactId>cwm-drawtool</artifactId>
 	<name>CWM Draw Tool</name>
-	<version>3.0-SNAPSHOT</version>
+	<version>2.1-SNAPSHOT</version>
 
     <url>http://code.google.com/p/cwm-drawtool</url>
 	<description>A drawing tool based on svg-edit</description>
@@ -52,8 +52,9 @@
     <dependencies>
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket-core</artifactId>
+			<artifactId>wicket</artifactId>
 			<version>${wicket.version}</version>
+			<type>pom</type>
 		</dependency>
 	</dependencies>
 
@@ -137,8 +138,8 @@
 	</build>
 
     <properties>
-      <copyright.year>2014</copyright.year>
-      <wicket.version>6.14.0</wicket.version>
+      <copyright.year>2013</copyright.year>
+      <wicket.version>1.5.8</wicket.version>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <project.test.sourceEncoding>UTF-8</project.test.sourceEncoding>
     </properties>
