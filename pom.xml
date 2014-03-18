@@ -37,7 +37,7 @@
     <distributionManagement>
         <repository>
             <id>CAST</id>
-            <url>scpexe://xander.cast.org/shared/maven2-repository</url>
+            <url>scpexe://comp.cast.org/var/www/html/maven2</url>
         </repository>
     </distributionManagement>
 
