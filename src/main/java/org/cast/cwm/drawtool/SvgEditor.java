@@ -1,5 +1,5 @@
 /**
- * Copyright 2011-2014 CAST, Inc.
+ * Copyright 2011-2013 CAST, Inc.
  *
  * This file is part of the CAST extension of SVG Edit;
  * see http://code.google.com/p/cwm-drawtool for more information.
@@ -25,9 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.IHeaderContributor;
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.InlineFrame;
@@ -36,6 +35,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.cast.cwm.drawtool.extension.Extension;
 
@@ -110,21 +110,20 @@ public class SvgEditor extends WebPage implements IHeaderContributor {
 	}
 	
 	
-	@Override
-	public void renderHead(IHeaderResponse response) {		
+	public void renderHead(IHeaderResponse response) {
+		
+		StringBuffer canvasInit = new StringBuffer();
+		
 		// Load initial SVG data
-		if (mSvg != null && mSvg.getObject() != null) {
-			String canvasInit = "svgEditor.loadFromString('" + mSvg.getObject().replaceAll("[\\n\\r]", " ") + "');\n";
-			response.render(JavaScriptHeaderItem.forScript(canvasInit, "Existing SVG Load"));
-		}
+		if (mSvg != null && mSvg.getObject() != null)
+			canvasInit.append("svgEditor.loadFromString('" + mSvg.getObject().replace('\n', ' ') + "');\n");
 		
-		// Store canvas in "document" so it is accessible from parent page via W3C standards.
-		// Note, cannot use OnLoadHeaderItem here since it triggers loading of Wicket AJAX libraries, and
-		// those require a more recent version of jQuery than this version of drawtool tolerates.
-		response.render(JavaScriptHeaderItem.forScript("$(window).load(function() { document.svgCanvas = window.svgCanvas; });\n", null));
-		
+		response.renderJavaScript(canvasInit, "Existing SVG Load");
+
+		// Store canvas in "document" so it is accessible from parent page via W3C standards		
+		response.renderOnLoadJavaScript("document.svgCanvas = window.svgCanvas;"); 
 		for (Extension ext : extensions)
-			response.render(JavaScriptHeaderItem.forReference(ext.getJavascriptResource()));
+			response.renderJavaScriptReference(ext.getJavascriptResource());
 	}
 	
 	/**
@@ -162,6 +161,18 @@ public class SvgEditor extends WebPage implements IHeaderContributor {
 
 	public void setMSvg(IModel<String> mSvg) {
 		this.mSvg = mSvg;
+	}
+	
+	@Deprecated
+	// TODO remove after next stable release
+	public String getSvg() {
+		return mSvg.getObject();
+	}
+
+	@Deprecated
+	// TODO remove after next stable release
+	public void setSvg(String svg) {
+		this.mSvg = Model.of(svg);
 	}
 	
 	public void addExtension(Extension ext) {
