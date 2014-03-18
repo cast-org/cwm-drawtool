@@ -30,8 +30,8 @@
 
     <scm>
         <url>http://code.google.com/p/cwm-drawtool/source</url>
-        <connection>scm:svn:http://cwm-drawtool.googlecode.com/svn/trunk</connection>
-        <developerConnection>scm:svn:https://cwm-drawtool.googlecode.com/svn/trunk</developerConnection>
+        <connection>scm:svn:http://cwm-drawtool.googlecode.com/svn/branches/wicket-1.5</connection>
+        <developerConnection>scm:svn:https://cwm-drawtool.googlecode.com/svn/branches/wicket-1.5</developerConnection>
     </scm>
 
     <distributionManagement>
