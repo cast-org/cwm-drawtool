@@ -6,7 +6,7 @@
 	<name>CWM Draw Tool</name>
 	<version>3.1-SNAPSHOT</version>
 
-    <url>http://code.google.com/p/cwm-drawtool</url>
+    <url>http://github.com/cast-org/cwm-drawtool</url>
 	<description>A drawing tool based on svg-edit</description>
 	<inceptionYear>2011</inceptionYear>
 	
@@ -24,14 +24,14 @@
     </licenses>
 
     <issueManagement>
-        <system>Google Code</system>
-        <url>http://code.google.com/p/cwm-drawtool/issues</url>
+        <system>Github</system>
+        <url>http://github.com/cast-org/cwm-drawtool/issues</url>
     </issueManagement>
 
     <scm>
-        <url>http://code.google.com/p/cwm-drawtool/source</url>
-        <connection>scm:svn:http://cwm-drawtool.googlecode.com/svn/trunk</connection>
-        <developerConnection>scm:svn:https://cwm-drawtool.googlecode.com/svn/trunk</developerConnection>
+        <url>scm:git:git://cast-org/cwm-drawtool.git</url>
+        <connection>scm:git:git://cast-org/cwm-drawtool.git</connection>
+        <developerConnection>scm:git:git@github.com:cast-org/cwm-drawtool.git</developerConnection>
     </scm>
 
     <distributionManagement>
