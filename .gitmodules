@@ -1,0 +1,3 @@
+[submodule "src/main/resources/org/cast/cwm/drawtool/svgedit"]
+	path = src/main/resources/org/cast/cwm/drawtool/svgedit
+	url = https://github.com/SVG-Edit/svgedit.git
