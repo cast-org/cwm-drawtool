@@ -162,7 +162,7 @@
 	</build>
 
     <properties>
-      <copyright.year>2014</copyright.year>
+      <copyright.year>2016</copyright.year>
       <wicket.version>6.21.0</wicket.version>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <project.test.sourceEncoding>UTF-8</project.test.sourceEncoding>
