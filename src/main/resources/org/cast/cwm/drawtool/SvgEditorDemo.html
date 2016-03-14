@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- 
-	This document should be identical to SvgEditor.html except that the URLs for svg-edit code
-	are absolute, pointing to the live trunk of svg-edit.
+	This document should be identical to SvgEditor.html except that the URLs for base SVG Edit
+	files point to their relative location, not Wicket-managed URLs.
 -->
 <html>
 <head>
@@ -11,42 +11,46 @@
 <link rel="icon" type="image/png" href="http://svg-edit.googlecode.com/svn/trunk/editor/images/logo.png">
 
 <!-- CSS Styles -->
-<link rel="stylesheet" href="http://svg-edit.googlecode.com/svn/trunk/editor/jgraduate/css/jPicker.css" type="text/css"/>
-<link rel="stylesheet" href="http://svg-edit.googlecode.com/svn/trunk/editor/jgraduate/css/jgraduate.css" type="text/css"/>
-<link rel="stylesheet" href="http://svg-edit.googlecode.com/svn/trunk/editor/svg-editor.css" type="text/css"/>
+<link rel="stylesheet" href="../../../../../../../svgedit/editor/jgraduate/css/jPicker.css" type="text/css"/>
+<link rel="stylesheet" href="../../../../../../../svgedit/editor/jgraduate/css/jgraduate.css" type="text/css"/>
+<link rel="stylesheet" href="../../../../../../../svgedit/editor/svg-editor.css" type="text/css"/>
 <link rel="stylesheet" href="cast/css/cast.css" type="text/css"/>
 <link rel="stylesheet" href="cast/css/JQuerySpinBtn.custom.css" type="text/css"/>
 
 <!-- JQuery -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+<!-- Polyfills -->
+<script type="text/javascript" src="3rd-party/pathseg.js"></script>
 
 <!-- Plugins -->
-<script type="text/javascript" src="http://svg-edit.googlecode.com/svn/trunk/editor/js-hotkeys/jquery.hotkeys.min.js"></script>
-<script type="text/javascript" src="http://svg-edit.googlecode.com/svn/trunk/editor/jquerybbq/jquery.bbq.min.js"></script>
-<script type="text/javascript" src="http://svg-edit.googlecode.com/svn/trunk/editor/svgicons/jquery.svgicons.js"></script>
+<script type="text/javascript" src="../../../../../../../svgedit/editor/js-hotkeys/jquery.hotkeys.min.js"></script>
+<script type="text/javascript" src="../../../../../../../svgedit/editor/jquerybbq/jquery.bbq.min.js"></script>
+<script type="text/javascript" src="../../../../../../../svgedit/editor/svgicons/jquery.svgicons.js"></script>
 <script type="text/javascript" src="extension/jquery.svgicons.js"></script>
-<script type="text/javascript" src="http://svg-edit.googlecode.com/svn/trunk/editor/jgraduate/jquery.jgraduate.min.js"></script>
-<script type="text/javascript" src="http://svg-edit.googlecode.com/svn/trunk/editor/spinbtn/JQuerySpinBtn.min.js"></script>
-<script type="text/javascript" src="http://svg-edit.googlecode.com/svn/trunk/editor/contextmenu/jquery.contextMenu.min.js"></script>
-<script type="text/javascript" src="http://svg-edit.googlecode.com/svn/trunk/editor/jgraduate/jpicker.min.js"></script>
+<script type="text/javascript" src="../../../../../../../svgedit/editor/jgraduate/jquery.jgraduate.min.js"></script>
+<script type="text/javascript" src="../../../../../../../svgedit/editor/spinbtn/JQuerySpinBtn.min.js"></script>
+
+<!-- SVG Edit Core -->
+<script type="text/javascript" src="../../../../../../../svgedit/editor/contextmenu/jquery.contextMenu.js"></script>
+<script type="text/javascript" src="../../../../../../../svgedit/editor/browser.js"></script>
+<script type="text/javascript" src="../../../../../../../svgedit/editor/svgtransformlist.js"></script>
+<script type="text/javascript" src="../../../../../../../svgedit/editor/math.js"></script>
+<script type="text/javascript" src="../../../../../../../svgedit/editor/units.js"></script>
+<script type="text/javascript" src="../../../../../../../svgedit/editor/svgutils.js"></script>
+<script type="text/javascript" src="../../../../../../../svgedit/editor/sanitize.js"></script>
+<script type="text/javascript" src="../../../../../../../svgedit/editor/history.js"></script>
+<script type="text/javascript" src="../../../../../../../svgedit/editor/select.js"></script>
+<script type="text/javascript" src="../../../../../../../svgedit/editor/draw.js"></script>
+<script type="text/javascript" src="../../../../../../../svgedit/editor/path.js"></script>
+<script type="text/javascript" src="../../../../../../../svgedit/editor/svgcanvas.js"></script>
+<script type="text/javascript" src="../../../../../../../svgedit/editor/svg-editor.js"></script>
+<script type="text/javascript" src="../../../../../../../svgedit/editor/locale/locale.js"></script>
+<script type="text/javascript" src="../../../../../../../svgedit/editor/contextmenu.js"></script>
 
 <!-- JQuery UI - adds "Tabs" to Svg-Edit's default package-->
 <script type="text/javascript" src="cast/js/jquery-ui-1.8.13.custom.min.js"></script>
-
-<!-- SVG-Edit -->
-<script type="text/javascript" src="http://svg-edit.googlecode.com/svn/trunk/editor/browser.js"></script>
-<script type="text/javascript" src="http://svg-edit.googlecode.com/svn/trunk/editor/svgtransformlist.js"></script>
-<script type="text/javascript" src="http://svg-edit.googlecode.com/svn/trunk/editor/math.js"></script>
-<script type="text/javascript" src="http://svg-edit.googlecode.com/svn/trunk/editor/units.js"></script>
-<script type="text/javascript" src="http://svg-edit.googlecode.com/svn/trunk/editor/svgutils.js"></script>
-<script type="text/javascript" src="http://svg-edit.googlecode.com/svn/trunk/editor/sanitize.js"></script>
-<script type="text/javascript" src="http://svg-edit.googlecode.com/svn/trunk/editor/history.js"></script>
-<script type="text/javascript" src="http://svg-edit.googlecode.com/svn/trunk/editor/select.js"></script>
-<script type="text/javascript" src="http://svg-edit.googlecode.com/svn/trunk/editor/draw.js"></script>
-<script type="text/javascript" src="http://svg-edit.googlecode.com/svn/trunk/editor/path.js"></script>
-<script type="text/javascript" src="http://svg-edit.googlecode.com/svn/trunk/editor/svgcanvas.js"></script>
-<script type="text/javascript" src="http://svg-edit.googlecode.com/svn/trunk/editor/svg-editor.js"></script>
-<script type="text/javascript" src="http://svg-edit.googlecode.com/svn/trunk/editor/locale/locale.js"></script>
+<script type="text/javascript" src="svgedit/jgraduate/jpicker.min.js"></script>
 
 <!-- Variables set by server before tool is executed -->
 <script wicket:id="serverImagePath" type="text/javascript"></script>
@@ -71,10 +75,6 @@
 <script type="text/javascript" src="extension/cwm-graph-axis.js"></script>
 
 </wicket:link>
-
-<!-- feeds -->
-<link rel="alternate" type="application/atom+xml" title="SVG-edit General Discussion" href="http://groups.google.com/group/svg-edit/feed/atom_v1_0_msgs.xml" />
-<link rel="alternate" type="application/atom+xml" title="SVG-edit Updates (Issues/Fixes/Commits)" href="http://code.google.com/feeds/p/svg-edit/updates/basic" />
 
 <title>SVG-edit demo</title>
 
@@ -215,8 +215,9 @@
 					<div class="tool_sep"></div>
 					<div class="tool_group">
 						<div class="push_button small_button" id="tool_group" title="Group Elements [G]"></div>
-					<div class="tool_label">Group</div>
+						<div class="tool_label">Group</div>
 					</div>
+			        <div class="tool_sep"></div>
 					<div class="tool_group">
 						<div class="push_button small_button" id="tool_alignleft" title="Align Left"></div>
 						<div class="push_button small_button" id="tool_aligncenter" title="Align Center"></div>
