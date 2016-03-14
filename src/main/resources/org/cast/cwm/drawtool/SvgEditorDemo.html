@@ -8,7 +8,6 @@
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="chrome=1"/>
 <wicket:link>
-<link rel="icon" type="image/png" href="http://svg-edit.googlecode.com/svn/trunk/editor/images/logo.png">
 
 <!-- CSS Styles -->
 <link rel="stylesheet" href="../../../../../../../svgedit/editor/jgraduate/css/jPicker.css" type="text/css"/>
@@ -32,8 +31,9 @@
 <script type="text/javascript" src="../../../../../../../svgedit/editor/spinbtn/JQuerySpinBtn.min.js"></script>
 
 <!-- SVG Edit Core -->
+<script type="text/javascript" src="cast/js/svgedit.js"></script><!--backported version-->
 <script type="text/javascript" src="../../../../../../../svgedit/editor/contextmenu/jquery.contextMenu.js"></script>
-<script type="text/javascript" src="../../../../../../../svgedit/editor/browser.js"></script>
+<script type="text/javascript" src="cast/js/browser.js"></script><!--backported version-->
 <script type="text/javascript" src="../../../../../../../svgedit/editor/svgtransformlist.js"></script>
 <script type="text/javascript" src="../../../../../../../svgedit/editor/math.js"></script>
 <script type="text/javascript" src="../../../../../../../svgedit/editor/units.js"></script>
@@ -44,13 +44,13 @@
 <script type="text/javascript" src="../../../../../../../svgedit/editor/draw.js"></script>
 <script type="text/javascript" src="../../../../../../../svgedit/editor/path.js"></script>
 <script type="text/javascript" src="../../../../../../../svgedit/editor/svgcanvas.js"></script>
-<script type="text/javascript" src="../../../../../../../svgedit/editor/svg-editor.js"></script>
+<script type="text/javascript" src="cast/js/svg-editor.js"></script> <!--overridden version of file-->
 <script type="text/javascript" src="../../../../../../../svgedit/editor/locale/locale.js"></script>
 <script type="text/javascript" src="../../../../../../../svgedit/editor/contextmenu.js"></script>
 
 <!-- JQuery UI - adds "Tabs" to Svg-Edit's default package-->
 <script type="text/javascript" src="cast/js/jquery-ui-1.8.13.custom.min.js"></script>
-<script type="text/javascript" src="svgedit/jgraduate/jpicker.min.js"></script>
+<script type="text/javascript" src="../../../../../../../svgedit/editor/jgraduate/jpicker.min.js"></script>
 
 <!-- Variables set by server before tool is executed -->
 <script wicket:id="serverImagePath" type="text/javascript"></script>
