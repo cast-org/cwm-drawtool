@@ -510,6 +510,7 @@
 				orig_source = '',
 				paintBox = {fill: null, stroke:null};
 
+
 			// This sets up alternative dialog boxes. They mostly work the same way as
 			// their UI counterparts, expect instead of returning the result, a callback
 			// needs to be included that returns the result as its first parameter.
@@ -4658,49 +4659,7 @@
 		//	revnums += svgCanvas.getVersion();
 		//	$('#copyright')[0].setAttribute("title", revnums);
 		
-			// Callback handler for embedapi.js
- 			try{
- 				var json_encode = function(obj){
- 			  //simple partial JSON encoder implementation
- 			  if(window.JSON && JSON.stringify) return JSON.stringify(obj);
- 			  var enc = arguments.callee; //for purposes of recursion
- 			  if(typeof obj == "boolean" || typeof obj == "number"){
- 				  return obj+'' //should work...
- 			  }else if(typeof obj == "string"){
- 				//a large portion of this is stolen from Douglas Crockford's json2.js
- 				return '"'+
- 					  obj.replace(
- 						/[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g
- 					  , function (a) {
- 						return '\\u' + ('0000' + a.charCodeAt(0).toString(16)).slice(-4);
- 					  })
- 					  +'"'; //note that this isn't quite as purtyful as the usualness
- 			  }else if(obj.length){ //simple hackish test for arrayish-ness
- 				for(var i = 0; i < obj.length; i++){
- 				  obj[i] = enc(obj[i]); //encode every sub-thingy on top
- 				}
- 				return "["+obj.join(",")+"]";
- 			  }else{
- 				var pairs = []; //pairs will be stored here
- 				for(var k in obj){ //loop through thingys
- 				  pairs.push(enc(k)+":"+enc(obj[k])); //key: value
- 				}
- 				return "{"+pairs.join(",")+"}" //wrap in the braces
- 			  }
- 			}
- 			  window.addEventListener("message", function(e){
- 				var cbid = parseInt(e.data.substr(0, e.data.indexOf(";")));
- 				try{
-					e.source.postMessage("SVGe"+cbid+";"+json_encode(eval(e.data)), "*");
- 			  }catch(err){					
-					e.source.postMessage("SVGe"+cbid+";error:"+err.message, "*");
- 			  }
- 			}, false)
- 			}catch(err){
- 			  window.embed_error = err;
-			}
-			
-		
+		// CAST removed callback handler for embedapi.js. It throws errors, for example when ChromeVox sends messages
 		
 			// For Compatibility with older extensions
 			$(function() {
