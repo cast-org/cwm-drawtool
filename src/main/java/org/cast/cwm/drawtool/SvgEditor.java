@@ -25,9 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.IHeaderContributor;
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.InlineFrame;
@@ -40,7 +39,7 @@ import org.apache.wicket.model.PropertyModel;
 import org.cast.cwm.drawtool.extension.Extension;
 
 /**
- * Use {@link #getEditor(String, String)} to generate an InlineFrame
+ * Use {@link #getEditor(String)} to generate an InlineFrame
  * that you can use to edit a string of SVG.  
  * 
  * @author jbrookover
@@ -111,20 +110,20 @@ public class SvgEditor extends WebPage implements IHeaderContributor {
 	
 	
 	@Override
-	public void renderHead(IHeaderResponse response) {		
+	public void renderHead(IHeaderResponse response) {
 		// Load initial SVG data
 		if (mSvg != null && mSvg.getObject() != null) {
 			String canvasInit = "svgEditor.loadFromString('" + mSvg.getObject().replaceAll("[\\n\\r]", " ") + "');\n";
-			response.render(JavaScriptHeaderItem.forScript(canvasInit, "Existing SVG Load"));
+			response.renderJavaScript(canvasInit, "Existing SVG Load");
 		}
 		
 		// Store canvas in "document" so it is accessible from parent page via W3C standards.
 		// Note, cannot use OnLoadHeaderItem here since it triggers loading of Wicket AJAX libraries, and
 		// those require a more recent version of jQuery than this version of drawtool tolerates.
-		response.render(JavaScriptHeaderItem.forScript("$(window).load(function() { document.svgCanvas = window.svgCanvas; });\n", null));
+		response.renderJavaScript("$(window).load(function() { document.svgCanvas = window.svgCanvas; });\n", null);
 		
 		for (Extension ext : extensions)
-			response.render(JavaScriptHeaderItem.forReference(ext.getJavascriptResource()));
+			response.renderJavaScriptReference(ext.getJavascriptResource());
 	}
 	
 	/**
