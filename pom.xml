@@ -4,7 +4,7 @@
 	<groupId>org.cast.cwm</groupId>
 	<artifactId>cwm-drawtool</artifactId>
 	<name>CWM Draw Tool</name>
-	<version>2.4-SNAPSHOT</version>
+	<version>2.4</version>
 
     <url>http://github.com/cast-org/cwm-drawtool</url>
 	<description>A drawing tool based on svg-edit</description>
@@ -32,7 +32,8 @@
         <url>scm:git:git://cast-org/cwm-drawtool.git</url>
         <connection>scm:git:git://cast-org/cwm-drawtool.git</connection>
         <developerConnection>scm:git:git@github.com:cast-org/cwm-drawtool.git</developerConnection>
-    </scm>
+      <tag>cwm-drawtool-2.4</tag>
+  </scm>
 
     <distributionManagement>
         <repository>
