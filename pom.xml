@@ -123,6 +123,31 @@
                 </executions>
             </plugin>
             <plugin>
+                <!-- Required so that a clean build (eg with mvn "release" plugin) will init the submodules -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.5.0</version>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>git submodule update</id>
+                        <phase>initialize</phase>
+                        <configuration>
+                            <executable>git</executable>
+                            <arguments>
+                                <argument>submodule</argument>
+                                <argument>update</argument>
+                                <argument>--init</argument>
+                                <argument>--recursive</argument>
+                            </arguments>
+                        </configuration>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>com.mycila.maven-license-plugin</groupId>
                 <artifactId>maven-license-plugin</artifactId>
                 <version>1.9.0</version>
