@@ -4,7 +4,7 @@
 	<groupId>org.cast.cwm</groupId>
 	<artifactId>cwm-drawtool</artifactId>
 	<name>CWM Draw Tool</name>
-	<version>3.2-SNAPSHOT</version>
+	<version>4.0-SNAPSHOT</version>
 
     <url>http://github.com/cast-org/cwm-drawtool</url>
 	<description>A drawing tool based on svg-edit</description>
@@ -94,8 +94,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
             <plugin>
@@ -189,7 +189,7 @@
 
     <properties>
       <copyright.year>2016</copyright.year>
-      <wicket.version>6.23.0</wicket.version>
+      <wicket.version>7.3.0</wicket.version>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <project.test.sourceEncoding>UTF-8</project.test.sourceEncoding>
     </properties>
